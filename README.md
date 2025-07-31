@@ -121,7 +121,47 @@ This is a personal project, but suggestions and improvements are welcome!
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is proprietary software. All rights reserved.
+
+### Copyright Notice
+
+Copyright (c) 2025 Soma Moradi. All rights reserved.
+
+**Developer:** Soma Moradi  
+**Project:** Job Application Tracker  
+**Version:** 1.0.0  
+**Created:** 2025
+
+### Terms of Use
+
+**✅ Permitted Uses:**
+- Personal use of the application
+- Suggestions for improvements or bug reports
+- Feedback and feature requests
+
+**❌ Prohibited Uses:**
+- Commercial use of any kind
+- Selling or redistributing the software
+- Using the software for commercial purposes
+- Modifying and redistributing the code
+- Creating derivative works for commercial purposes
+
+### User Rights
+
+- Users are welcome to use this application for personal job tracking
+- Users can send suggestions, bug reports, and improvement ideas
+- Users can provide feedback on features and functionality
+- All intellectual property rights remain with the original author
+
+### Commercial Restrictions
+
+This software is provided for personal use only. Commercial use, including but not limited to:
+- Selling the software
+- Using it in commercial applications
+- Incorporating it into commercial products
+- Using it for business purposes
+
+is strictly prohibited without explicit written permission from the copyright holder.
 
 ---
 
