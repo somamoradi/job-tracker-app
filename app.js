@@ -496,6 +496,8 @@ class JobTracker {
     addInterviewField() {
         this.interviewCounter++;
         const container = document.getElementById('interview-results-container');
+        if (!container) return; // Exit if container doesn't exist
+        
         const newInterview = document.createElement('div');
         newInterview.className = 'interview-result-item';
         newInterview.innerHTML = `
@@ -525,6 +527,8 @@ class JobTracker {
                     <option value="passed">Passed</option>
                     <option value="failed">Failed</option>
                     <option value="pending">Pending</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="next-step">Pass to next step</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
             </div>
@@ -539,6 +543,8 @@ class JobTracker {
     // Contract Type Management
     handleContractTypeChange(contractType) {
         const durationInput = document.getElementById('contract-duration');
+        
+        if (!durationInput) return; // Exit if element doesn't exist
         
         if (contractType === 'cdi') {
             durationInput.value = 'indeterminate';
@@ -563,6 +569,8 @@ class JobTracker {
         const title = document.getElementById('modal-title');
         const form = document.getElementById('job-form');
 
+        if (!modal || !title || !form) return; // Exit if required elements don't exist
+
         if (jobId) {
             const job = this.jobs.find(j => j.id === jobId);
             if (job) {
@@ -572,7 +580,10 @@ class JobTracker {
         } else {
             title.textContent = this.translations[this.currentLanguage]?.modal_title_add || 'Add New Job';
             form.reset();
-            document.getElementById('application-date').value = new Date().toISOString().split('T')[0];
+            const applicationDateField = document.getElementById('application-date');
+            if (applicationDateField) {
+                applicationDateField.value = new Date().toISOString().split('T')[0];
+            }
             this.resetInterviewFields();
         }
 
@@ -580,12 +591,17 @@ class JobTracker {
     }
 
     closeJobModal() {
-        document.getElementById('job-modal').classList.remove('active');
+        const modal = document.getElementById('job-modal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
         this.currentJobId = null;
     }
 
     resetInterviewFields() {
         const container = document.getElementById('interview-results-container');
+        if (!container) return; // Exit if container doesn't exist
+        
         container.innerHTML = `
             <div class="interview-result-item">
                 <div class="form-row">
@@ -613,6 +629,8 @@ class JobTracker {
                         <option value="passed">Passed</option>
                         <option value="failed">Failed</option>
                         <option value="pending">Pending</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="next-step">Pass to next step</option>
                         <option value="cancelled">Cancelled</option>
                     </select>
                 </div>
@@ -626,42 +644,34 @@ class JobTracker {
     }
 
     populateForm(job) {
-        // Reset interview fields first
-        this.resetInterviewFields();
+        // Helper function to safely set form field values
+        const setFieldValue = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.value = value || '';
+            }
+        };
         
-        // Populate basic form fields
-        document.getElementById('company-name').value = job.companyName || '';
-        document.getElementById('position-title').value = job.positionTitle || '';
-        document.getElementById('job-url').value = job.jobUrl || '';
-        document.getElementById('contact-person').value = job.contactPerson || '';
-        document.getElementById('location').value = job.location || '';
-        document.getElementById('status').value = job.status || 'to-apply';
-        document.getElementById('application-date').value = job.applicationDate || '';
-        document.getElementById('contract-type').value = job.contractType || '';
-        document.getElementById('contract-duration').value = job.contractDuration || '';
-        document.getElementById('start-date').value = job.startDate || '';
-        document.getElementById('salary-amount').value = job.salaryAmount || '';
-        document.getElementById('salary-period').value = job.salaryPeriod || '';
-        document.getElementById('notes').value = job.notes || '';
+        // Populate basic form fields with null checks
+        setFieldValue('company-name', job.companyName);
+        setFieldValue('position-title', job.positionTitle);
+        setFieldValue('job-url', job.jobUrl);
+        setFieldValue('contact-person', job.contactPerson);
+        setFieldValue('location', job.location);
+        setFieldValue('status', job.status || 'to-apply');
+        setFieldValue('application-date', job.applicationDate);
+        setFieldValue('contract-type', job.contractType);
+        setFieldValue('contract-duration', job.contractDuration);
+        setFieldValue('start-date', job.startDate);
+        setFieldValue('salary-amount', job.salaryAmount);
+        setFieldValue('salary-period', job.salaryPeriod);
+        setFieldValue('notes', job.notes);
 
         // Handle contract duration field based on contract type
         this.handleContractTypeChange(job.contractType || '');
 
-        // Populate interview results after resetting fields
-        if (job.interviewResults && job.interviewResults.length > 0) {
-            job.interviewResults.forEach((interview, index) => {
-                if (index > 0) {
-                    this.addInterviewField();
-                }
-                const interviewItem = document.querySelectorAll('.interview-result-item')[index];
-                if (interviewItem) {
-                    interviewItem.querySelector('.interview-date').value = interview.date || '';
-                    interviewItem.querySelector('.interview-type').value = interview.type || '';
-                    interviewItem.querySelector('.interview-result').value = interview.result || '';
-                    interviewItem.querySelector('.interview-notes').value = interview.notes || '';
-                }
-            });
-        }
+        // Populate interview results using the proper method
+        this.populateInterviewResults(job.interviewResults || []);
     }
 
     populateInterviewResults(interviewResults) {
@@ -705,6 +715,8 @@ class JobTracker {
                             <option value="passed" ${interview.result === 'passed' ? 'selected' : ''}>Passed</option>
                             <option value="failed" ${interview.result === 'failed' ? 'selected' : ''}>Failed</option>
                             <option value="pending" ${interview.result === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="scheduled" ${interview.result === 'scheduled' ? 'selected' : ''}>Scheduled</option>
+                            <option value="next-step" ${interview.result === 'next-step' ? 'selected' : ''}>Pass to next step</option>
                             <option value="cancelled" ${interview.result === 'cancelled' ? 'selected' : ''}>Cancelled</option>
                         </select>
                     </div>
@@ -722,6 +734,12 @@ class JobTracker {
 
     saveJob(e) {
         e.preventDefault();
+        
+        // Prevent duplicate saves by checking if modal is still active
+        const modal = document.getElementById('job-modal');
+        if (!modal || !modal.classList.contains('active')) {
+            return; // Modal is not active, don't save
+        }
         
         // Collect interview results
         const interviewResults = [];
@@ -1502,6 +1520,8 @@ class JobTracker {
             'passed': 'Passed',
             'failed': 'Failed',
             'pending': 'Pending',
+            'scheduled': 'Scheduled',
+            'next-step': 'Pass to next step',
             'cancelled': 'Cancelled'
         };
         return resultMap[result] || result;
