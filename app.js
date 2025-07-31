@@ -329,10 +329,13 @@ class JobTracker {
 
     translateUI() {
         const elements = {
+            // Main app elements
             'app-title': 'app_title',
             'add-job-text': 'add_job',
             'add-job-btn': 'add_job',
             'search-jobs': 'search_jobs',
+            
+            // Sort options
             'sort-label': 'sort_by',
             'sort-date-applied-desc': 'sort_date_applied_desc',
             'sort-date-applied-asc': 'sort_date_applied_asc',
@@ -343,6 +346,8 @@ class JobTracker {
             'sort-status': 'sort_status',
             'sort-company': 'sort_company',
             'sort-position': 'sort_position',
+            
+            // Archive elements
             'archive-title': 'archived_jobs',
             'search-archive': 'search_archived_jobs',
             'sort-archive-label': 'sort_by',
@@ -355,6 +360,8 @@ class JobTracker {
             'sort-archive-status': 'sort_status',
             'sort-archive-company': 'sort_company',
             'sort-archive-position': 'sort_position',
+            
+            // Reports elements
             'chart-title': 'chart_title',
             'legend-to-apply': 'status_to_apply',
             'legend-applied': 'status_applied',
@@ -372,18 +379,28 @@ class JobTracker {
             'all-statuses': 'all_statuses',
             'all-contracts': 'all_contracts',
             'all-dates': 'all_dates',
-            'total-jobs': 'total_jobs',
-            'active-jobs': 'active_jobs',
-            'completed-jobs': 'completed_jobs',
+            'total-jobs-label': 'total_jobs',
+            'applied-jobs-label': 'applied_jobs',
+            'interview-jobs-label': 'interview_jobs',
+            'success-rate-label': 'success_rate',
+            
+            // Settings elements
             'settings-title': 'settings',
-            'language-label': 'language',
-            'theme-label': 'theme',
-            'export-data-btn': 'export_data',
-            'import-data-btn': 'import_data',
-            'clear-data-btn': 'clear_data',
-            'export-description': 'export_description',
-            'import-description': 'import_description',
-            'clear-description': 'clear_description',
+            'language-section-title': 'language_section_title',
+            'language-label': 'language_label',
+            'theme-section-title': 'theme_section_title',
+            'theme-label': 'theme_label',
+            'data-section-title': 'data_section_title',
+            'about-section-title': 'about_section_title',
+            'export-data-text': 'export_data',
+            'import-data-text': 'import_data',
+            'clear-data-text': 'clear_data',
+            'app-version': 'app_version',
+            'app-description': 'app_description',
+            'app-copyright': 'app_copyright',
+            'app-license': 'app_license',
+            
+            // Modal elements
             'modal-title-add': 'add_job',
             'modal-title-edit': 'edit_job',
             'company-name-label': 'company_name',
@@ -405,6 +422,8 @@ class JobTracker {
             'interview-result-label': 'interview_result',
             'interview-notes-label': 'interview_notes',
             'add-interview-text': 'add_interview',
+            
+            // Contract options
             'select-contract': 'select_contract',
             'cdi-contract': 'cdi_contract',
             'cdd-contract': 'cdd_contract',
@@ -413,11 +432,15 @@ class JobTracker {
             'part-time-contract': 'part_time_contract',
             'temporary-contract': 'temporary_contract',
             'other-contract': 'other_contract',
+            
+            // Period options
             'select-period': 'select_period',
             'hour-period': 'hour_period',
             'day-period': 'day_period',
             'month-period': 'month_period',
             'year-period': 'year_period',
+            
+            // Interview options
             'select-interview-type': 'select_interview_type',
             'phone-interview': 'phone_interview',
             'video-interview': 'video_interview',
@@ -425,29 +448,78 @@ class JobTracker {
             'technical-test': 'technical_test',
             'assessment-test': 'assessment_test',
             'other-interview': 'other_interview',
+            
+            // Result options
             'select-result': 'select_result',
             'passed-result': 'passed_result',
             'failed-result': 'failed_result',
             'pending-result': 'pending_result',
             'cancelled-result': 'cancelled_result',
-            'save-btn': 'save',
+            
+            // Action buttons
+            'save-job-btn': 'save_job',
             'cancel-btn': 'cancel',
             'delete-modal-title': 'delete_job',
-            'delete-modal-message': 'delete_job_message',
+            'delete-confirmation-text': 'delete_confirmation',
             'confirm-delete': 'confirm_delete',
             'cancel-delete': 'cancel',
-            'clear-modal-title': 'clear_data',
-            'clear-modal-message': 'clear_data_message',
+            'clear-data-title': 'clear_data',
+            'clear-data-confirmation': 'clear_data_confirmation',
             'confirm-clear': 'confirm_clear',
             'cancel-clear': 'cancel',
-            'archive': 'Archive',
-            'unarchive': 'Unarchive',
-            'no_archived_jobs_yet': 'No archived jobs yet',
-            'no_archived_jobs_found': 'No archived jobs found',
-            'chart_title': 'Job Application Status Distribution',
-            'try_search': 'Try adjusting your search terms',
-            'add_first_job': 'Add your first job application to get started!',
-            'add_first_job_btn': 'Add Your First Job'
+            
+            // Status options
+            'to-apply-option': 'status_to_apply',
+            'applied-option': 'status_applied',
+            'interview-scheduled-option': 'status_interview_scheduled',
+            'interview-completed-option': 'status_interview_completed',
+            'rejected-option': 'status_rejected',
+            'accepted-option': 'status_accepted',
+            
+            // Contract filter options
+            'cdi-option': 'cdi_contract',
+            'cdd-option': 'cdd_contract',
+            'freelance-option': 'freelance_contract',
+            'internship-option': 'internship_contract',
+            'part-time-option': 'part_time_contract',
+            'temporary-option': 'temporary_contract',
+            'other-contract-option': 'other_contract',
+            
+            // Date filter options
+            'today-option': 'today',
+            'week-option': 'this_week',
+            'month-option': 'this_month',
+            'quarter-option': 'this_quarter',
+            'year-option': 'this_year',
+            
+            // Theme options
+            'blue-theme': 'blue_theme',
+            'green-theme': 'green_theme',
+            'purple-theme': 'purple_theme',
+            'orange-theme': 'orange_theme',
+            'dark-theme': 'dark_theme',
+            
+            // Language options
+            'english-option': 'english',
+            'spanish-option': 'spanish',
+            'french-option': 'french',
+            'german-option': 'german',
+            'italian-option': 'italian',
+            'portuguese-option': 'portuguese',
+            'arabic-option': 'arabic',
+            'chinese-option': 'chinese',
+            'japanese-option': 'japanese',
+            'korean-option': 'korean',
+            
+            // Other elements
+            'archive': 'archive',
+            'unarchive': 'unarchive',
+            'no_archived_jobs_yet': 'no_archived_jobs_yet',
+            'no_archived_jobs_found': 'no_archived_jobs_found',
+            'chart_title': 'chart_title',
+            'try_search': 'try_search',
+            'add_first_job': 'add_first_job',
+            'add_first_job_btn': 'add_first_job_btn'
         };
 
         Object.keys(elements).forEach(id => {
@@ -456,11 +528,37 @@ class JobTracker {
                 const translationKey = elements[id];
                 const translation = this.translations[this.currentLanguage]?.[translationKey];
                 if (translation) {
-                    if (element.tagName === 'INPUT' && element.type === 'placeholder') {
+                    if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
                         element.placeholder = translation;
                     } else {
                         element.textContent = translation;
                     }
+                }
+            }
+        });
+
+        // Handle placeholder translations for input fields
+        const placeholderElements = {
+            'search-jobs': 'search_jobs',
+            'search-archive': 'search_archived_jobs',
+            'company-name': 'company_name_placeholder',
+            'position-title': 'position_title_placeholder',
+            'location': 'location_placeholder',
+            'contact-person': 'contact_person_placeholder',
+            'job-url': 'job_url_placeholder',
+            'contract-duration': 'contract_duration_placeholder',
+            'salary-amount': 'salary_amount_placeholder',
+            'notes': 'notes_placeholder',
+            'interview-notes-1': 'interview_notes_placeholder'
+        };
+
+        Object.keys(placeholderElements).forEach(id => {
+            const element = document.getElementById(id);
+            if (element && element.hasAttribute('placeholder')) {
+                const translationKey = placeholderElements[id];
+                const translation = this.translations[this.currentLanguage]?.[translationKey];
+                if (translation) {
+                    element.placeholder = translation;
                 }
             }
         });
@@ -470,6 +568,12 @@ class JobTracker {
             document.body.setAttribute('dir', 'rtl');
         } else {
             document.body.setAttribute('dir', 'ltr');
+        }
+
+        // Update language selector to show current language
+        const languageSelect = document.getElementById('language-select');
+        if (languageSelect) {
+            languageSelect.value = this.currentLanguage;
         }
     }
 
@@ -1621,77 +1725,175 @@ class JobTracker {
     getTranslations() {
         return {
             en: {
+                // Main app
                 app_title: 'Job Tracker',
-                add_job_text: 'Add Job',
-                settings_title: 'Settings',
-                language_section_title: 'Language',
-                language_label: 'Select Language:',
-                theme_section_title: 'Theme',
-                theme_label: 'Color Theme:',
-                data_section_title: 'Data Management',
-                export_data_text: 'Export Data',
-                import_data_text: 'Import Data',
-                clear_data_text: 'Clear All Data',
-                about_section_title: 'About',
-                app_version: 'Version: 1.0.0',
-                app_description: 'Job Application Tracker - Track your job applications with ease',
-                sort_label: 'Sort by:',
-                status_filter_label: 'Status:',
-                contract_filter_label: 'Contract Type:',
-                date_filter_label: 'Date Range:',
-                all_statuses: 'All Statuses',
-                all_contracts: 'All Contracts',
-                all_time: 'All Time',
-                total_jobs_label: 'Total Jobs',
-                applied_jobs_label: 'Applied',
-                interview_jobs_label: 'Interviews',
-                success_rate_label: 'Success Rate',
-                company_name_label: 'Company Name *',
-                position_title_label: 'Position Title *',
-                contract_type_label: 'Contract Type',
-                contract_duration_label: 'Contract Duration',
-                application_date_label: 'Application Date',
-                start_date_label: 'Start Date',
-                job_status_label: 'Status',
-                salary_amount_label: 'Salary Amount',
-                salary_period_label: 'Salary Period',
-                location_label: 'Location',
-                contact_person_label: 'Contact Person',
-                job_url_label: 'Job URL',
-                interview_results_label: 'Interview Results & Tests',
-                interview_date_label: 'Date',
-                interview_type_label: 'Type',
-                interview_result_label: 'Result',
-                interview_notes_label: 'Details',
-                add_interview_text: 'Add Another Interview/Test',
-                notes_label: 'General Notes',
-                save_job_btn: 'Save Job',
-                delete_modal_title: 'Delete Job',
-                delete_confirmation_text: 'Are you sure you want to delete this job application? This action cannot be undone.',
-                clear_data_title: 'Clear All Data',
-                clear_data_confirmation: 'This will permanently delete all your job applications. This action cannot be undone. Are you sure?',
+                add_job: 'Add Job',
+                search_jobs: 'Search jobs...',
+                archived_jobs: 'Archived Jobs',
+                search_archived_jobs: 'Search archived jobs...',
+                
+                // Sort options
+                sort_by: 'Sort by:',
+                sort_date_applied_desc: 'Date Applied (Newest)',
+                sort_date_applied_asc: 'Date Applied (Oldest)',
+                sort_start_date_desc: 'Start Date (Latest)',
+                sort_start_date_asc: 'Start Date (Earliest)',
+                sort_salary_desc: 'Salary (High to Low)',
+                sort_salary_asc: 'Salary (Low to High)',
+                sort_status: 'Status',
+                sort_company: 'Company Name',
+                sort_position: 'Position Title',
+                
+                // Reports
+                chart_title: 'Job Application Status Distribution',
                 status_to_apply: 'To Apply',
                 status_applied: 'Applied',
                 status_interview_scheduled: 'Interview Scheduled',
                 status_interview_completed: 'Interview Completed',
                 status_rejected: 'Rejected',
                 status_accepted: 'Accepted',
-                edit: 'Edit',
-                delete: 'Delete',
-                status: 'Status',
-                applied: 'Applied',
-                contract_type: 'Contract',
-                duration: 'Duration',
-                start_date: 'Start Date',
+                reports: 'Reports',
+                filter_by_status: 'Status:',
+                filter_by_contract: 'Contract Type:',
+                filter_by_date: 'Date Range:',
+                all_statuses: 'All Statuses',
+                all_contracts: 'All Contracts',
+                all_time: 'All Time',
+                total_jobs: 'Total Jobs',
+                applied_jobs: 'Applied',
+                interview_jobs: 'Interviews',
+                success_rate: 'Success Rate',
+                
+                // Settings
+                settings: 'Settings',
+                language_section_title: 'Language',
+                language_label: 'Select Language:',
+                theme_section_title: 'Theme',
+                theme_label: 'Color Theme:',
+                data_section_title: 'Data Management',
+                about_section_title: 'About',
+                export_data: 'Export Data',
+                import_data: 'Import Data',
+                clear_data: 'Clear All Data',
+                app_version: 'Version: 1.0.0',
+                app_description: 'Job Application Tracker - Track your job applications with ease',
+                app_copyright: '© 2024 Soma Moradi. All rights reserved.',
+                app_license: 'Personal use only. Commercial use prohibited.',
+                
+                // Modal elements
+                add_job: 'Add New Job',
+                edit_job: 'Edit Job',
+                company_name: 'Company Name *',
+                position_title: 'Position Title *',
+                job_url: 'Job URL',
+                contact_person: 'Contact Person',
                 location: 'Location',
-                salary: 'Salary',
-                contact: 'Contact',
-                url: 'URL',
-                notes: 'Notes',
+                status: 'Status',
+                application_date: 'Application Date',
+                contract_type: 'Contract Type',
+                contract_duration: 'Contract Duration',
+                start_date: 'Start Date',
+                salary_amount: 'Salary Amount',
+                salary_period: 'Salary Period',
+                notes: 'General Notes',
                 interview_results: 'Interview Results & Tests',
-                view_job: 'View Job',
-                no_jobs_yet: 'No jobs yet',
-                no_jobs_found: 'No jobs found',
+                interview_date: 'Date',
+                interview_type: 'Type',
+                interview_result: 'Result',
+                interview_notes: 'Details',
+                add_interview: 'Add Another Interview/Test',
+                save_job: 'Save Job',
+                cancel: 'Cancel',
+                
+                // Contract options
+                select_contract: 'Select Contract Type',
+                cdi_contract: 'CDI (Permanent)',
+                cdd_contract: 'CDD (Fixed-term)',
+                freelance_contract: 'Freelance',
+                internship_contract: 'Internship',
+                part_time_contract: 'Part-time',
+                temporary_contract: 'Temporary',
+                other_contract: 'Other',
+                
+                // Period options
+                select_period: 'Select Period',
+                hour_period: 'Per Hour',
+                day_period: 'Per Day',
+                month_period: 'Per Month',
+                year_period: 'Per Year',
+                
+                // Interview options
+                select_interview_type: 'Select Type',
+                phone_interview: 'Phone Interview',
+                video_interview: 'Video Interview',
+                onsite_interview: 'On-site Interview',
+                technical_test: 'Technical Test',
+                assessment_test: 'Assessment Test',
+                other_interview: 'Other',
+                
+                // Result options
+                select_result: 'Select Result',
+                passed_result: 'Passed',
+                failed_result: 'Failed',
+                pending_result: 'Pending',
+                cancelled_result: 'Cancelled',
+                
+                // Action buttons
+                delete_job: 'Delete Job',
+                delete_confirmation: 'Are you sure you want to delete this job application? This action cannot be undone.',
+                confirm_delete: 'Delete',
+                clear_data: 'Clear All Data',
+                clear_data_confirmation: 'This will permanently delete all your job applications. This action cannot be undone. Are you sure?',
+                confirm_clear: 'Clear All Data',
+                
+                // Status options
+                to_apply: 'To Apply',
+                applied: 'Applied',
+                interview_scheduled: 'Interview Scheduled',
+                interview_completed: 'Interview Completed',
+                rejected: 'Rejected',
+                accepted: 'Accepted',
+                
+                // Contract filter options
+                cdi: 'CDI',
+                cdd: 'CDD',
+                freelance: 'Freelance',
+                internship: 'Internship',
+                part_time: 'Part-time',
+                temporary: 'Temporary',
+                other: 'Other',
+                
+                // Date filter options
+                today: 'Today',
+                this_week: 'This Week',
+                this_month: 'This Month',
+                this_quarter: 'This Quarter',
+                this_year: 'This Year',
+                
+                // Theme options
+                blue_theme: 'Blue (Default)',
+                green_theme: 'Green',
+                purple_theme: 'Purple',
+                orange_theme: 'Orange',
+                dark_theme: 'Dark Mode',
+                
+                // Language options
+                english: 'English',
+                spanish: 'Español',
+                french: 'Français',
+                german: 'Deutsch',
+                italian: 'Italiano',
+                portuguese: 'Português',
+                arabic: 'العربية',
+                chinese: '中文',
+                japanese: '日本語',
+                korean: '한국어',
+                
+                // Other elements
+                archive: 'Archive',
+                unarchive: 'Unarchive',
+                no_archived_jobs_yet: 'No archived jobs yet',
+                no_archived_jobs_found: 'No archived jobs found',
                 try_search: 'Try adjusting your search terms',
                 add_first_job: 'Add your first job application to get started!',
                 add_first_job_btn: 'Add Your First Job',
@@ -1701,92 +1903,188 @@ class JobTracker {
                 data_imported: 'Data imported successfully!',
                 data_cleared: 'All data cleared successfully!',
                 import_error: 'Error importing data. Please check the file format.',
-                modal_title_add: 'Add New Job',
-                modal_title_edit: 'Edit Job',
-                full_view: 'Full View',
-                compact_view: 'Compact View',
-                view_rapid: 'View Rapid',
-                view_complete: 'View Complete',
-                hide_rapid: 'Hide Rapid',
-                complete_details: 'Complete Details',
-                archive: 'Archive',
-                unarchive: 'Unarchive',
-                no_archived_jobs_yet: 'No archived jobs yet',
-                no_archived_jobs_found: 'No archived jobs found',
-                chart_title: 'Job Application Status Distribution'
+                
+                // Placeholder translations
+                company_name_placeholder: 'Enter company name',
+                position_title_placeholder: 'Enter position title',
+                location_placeholder: 'City, State',
+                contact_person_placeholder: 'Enter contact person name',
+                job_url_placeholder: 'https://...',
+                contract_duration_placeholder: 'e.g., 6 months, 1 year',
+                salary_amount_placeholder: 'e.g., 50000',
+                notes_placeholder: 'Additional notes...',
+                interview_notes_placeholder: 'Interview details, feedback, next steps...'
             },
             es: {
+                // Main app
                 app_title: 'Rastreador de Trabajos',
-                add_job_text: 'Agregar Trabajo',
-                settings_title: 'Configuración',
-                language_section_title: 'Idioma',
-                language_label: 'Seleccionar Idioma:',
-                theme_section_title: 'Tema',
-                theme_label: 'Tema de Color:',
-                data_section_title: 'Gestión de Datos',
-                export_data_text: 'Exportar Datos',
-                import_data_text: 'Importar Datos',
-                clear_data_text: 'Borrar Todos los Datos',
-                about_section_title: 'Acerca de',
-                app_version: 'Versión: 1.0.0',
-                app_description: 'Rastreador de Aplicaciones de Trabajo - Rastrea tus aplicaciones de trabajo fácilmente',
-                sort_label: 'Ordenar por:',
-                status_filter_label: 'Estado:',
-                contract_filter_label: 'Tipo de Contrato:',
-                date_filter_label: 'Rango de Fecha:',
-                all_statuses: 'Todos los Estados',
-                all_contracts: 'Todos los Contratos',
-                all_time: 'Todo el Tiempo',
-                total_jobs_label: 'Total de Trabajos',
-                applied_jobs_label: 'Aplicado',
-                interview_jobs_label: 'Entrevistas',
-                success_rate_label: 'Tasa de Éxito',
-                company_name_label: 'Nombre de la Empresa *',
-                position_title_label: 'Título del Puesto *',
-                contract_type_label: 'Tipo de Contrato',
-                contract_duration_label: 'Duración del Contrato',
-                application_date_label: 'Fecha de Aplicación',
-                start_date_label: 'Fecha de Inicio',
-                job_status_label: 'Estado',
-                salary_amount_label: 'Monto del Salario',
-                salary_period_label: 'Período del Salario',
-                location_label: 'Ubicación',
-                contact_person_label: 'Persona de Contacto',
-                job_url_label: 'URL del Trabajo',
-                interview_results_label: 'Resultados de Entrevistas y Pruebas',
-                interview_date_label: 'Fecha',
-                interview_type_label: 'Tipo',
-                interview_result_label: 'Resultado',
-                interview_notes_label: 'Detalles',
-                add_interview_text: 'Agregar Otra Entrevista/Prueba',
-                notes_label: 'Notas Generales',
-                save_job_btn: 'Guardar Trabajo',
-                delete_modal_title: 'Eliminar Trabajo',
-                delete_confirmation_text: '¿Estás seguro de que quieres eliminar esta aplicación de trabajo? Esta acción no se puede deshacer.',
-                clear_data_title: 'Borrar Todos los Datos',
-                clear_data_confirmation: 'Esto eliminará permanentemente todas tus aplicaciones de trabajo. Esta acción no se puede deshacer. ¿Estás seguro?',
+                add_job: 'Agregar Trabajo',
+                search_jobs: 'Buscar trabajos...',
+                archived_jobs: 'Trabajos Archivados',
+                search_archived_jobs: 'Buscar trabajos archivados...',
+                
+                // Sort options
+                sort_by: 'Ordenar por:',
+                sort_date_applied_desc: 'Fecha de Aplicación (Más Reciente)',
+                sort_date_applied_asc: 'Fecha de Aplicación (Más Antigua)',
+                sort_start_date_desc: 'Fecha de Inicio (Más Tardía)',
+                sort_start_date_asc: 'Fecha de Inicio (Más Temprana)',
+                sort_salary_desc: 'Salario (Alto a Bajo)',
+                sort_salary_asc: 'Salario (Bajo a Alto)',
+                sort_status: 'Estado',
+                sort_company: 'Nombre de la Empresa',
+                sort_position: 'Título del Puesto',
+                
+                // Reports
+                chart_title: 'Distribución de Estados de Solicitud de Trabajo',
                 status_to_apply: 'Por Aplicar',
                 status_applied: 'Aplicado',
                 status_interview_scheduled: 'Entrevista Programada',
                 status_interview_completed: 'Entrevista Completada',
                 status_rejected: 'Rechazado',
                 status_accepted: 'Aceptado',
-                edit: 'Editar',
-                delete: 'Eliminar',
-                status: 'Estado',
-                applied: 'Aplicado',
-                contract_type: 'Contrato',
-                duration: 'Duración',
-                start_date: 'Fecha de Inicio',
+                reports: 'Reportes',
+                filter_by_status: 'Estado:',
+                filter_by_contract: 'Tipo de Contrato:',
+                filter_by_date: 'Rango de Fecha:',
+                all_statuses: 'Todos los Estados',
+                all_contracts: 'Todos los Contratos',
+                all_time: 'Todo el Tiempo',
+                total_jobs: 'Total de Trabajos',
+                applied_jobs: 'Aplicado',
+                interview_jobs: 'Entrevistas',
+                success_rate: 'Tasa de Éxito',
+                
+                // Settings
+                settings: 'Configuración',
+                language_section_title: 'Idioma',
+                language_label: 'Seleccionar Idioma:',
+                theme_section_title: 'Tema',
+                theme_label: 'Tema de Color:',
+                data_section_title: 'Gestión de Datos',
+                about_section_title: 'Acerca de',
+                export_data: 'Exportar Datos',
+                import_data: 'Importar Datos',
+                clear_data: 'Borrar Todos los Datos',
+                app_version: 'Versión: 1.0.0',
+                app_description: 'Rastreador de Aplicaciones de Trabajo - Rastrea tus aplicaciones de trabajo fácilmente',
+                app_copyright: '© 2024 Soma Moradi. Todos los derechos reservados.',
+                app_license: 'Solo uso personal. Uso comercial prohibido.',
+                
+                // Modal elements
+                add_job: 'Agregar Nuevo Trabajo',
+                edit_job: 'Editar Trabajo',
+                company_name: 'Nombre de la Empresa *',
+                position_title: 'Título del Puesto *',
+                job_url: 'URL del Trabajo',
+                contact_person: 'Persona de Contacto',
                 location: 'Ubicación',
-                salary: 'Salario',
-                contact: 'Contacto',
-                url: 'URL',
-                notes: 'Notas',
+                status: 'Estado',
+                application_date: 'Fecha de Aplicación',
+                contract_type: 'Tipo de Contrato',
+                contract_duration: 'Duración del Contrato',
+                start_date: 'Fecha de Inicio',
+                salary_amount: 'Monto del Salario',
+                salary_period: 'Período del Salario',
+                notes: 'Notas Generales',
                 interview_results: 'Resultados de Entrevistas y Pruebas',
-                view_job: 'Ver Trabajo',
-                no_jobs_yet: 'Aún no hay trabajos',
-                no_jobs_found: 'No se encontraron trabajos',
+                interview_date: 'Fecha',
+                interview_type: 'Tipo',
+                interview_result: 'Resultado',
+                interview_notes: 'Detalles',
+                add_interview: 'Agregar Otra Entrevista/Prueba',
+                save_job: 'Guardar Trabajo',
+                cancel: 'Cancelar',
+                
+                // Contract options
+                select_contract: 'Seleccionar Tipo de Contrato',
+                cdi_contract: 'CDI (Permanente)',
+                cdd_contract: 'CDD (Término Fijo)',
+                freelance_contract: 'Freelance',
+                internship_contract: 'Pasantía',
+                part_time_contract: 'Tiempo Parcial',
+                temporary_contract: 'Temporal',
+                other_contract: 'Otro',
+                
+                // Period options
+                select_period: 'Seleccionar Período',
+                hour_period: 'Por Hora',
+                day_period: 'Por Día',
+                month_period: 'Por Mes',
+                year_period: 'Por Año',
+                
+                // Interview options
+                select_interview_type: 'Seleccionar Tipo',
+                phone_interview: 'Entrevista Telefónica',
+                video_interview: 'Entrevista por Video',
+                onsite_interview: 'Entrevista Presencial',
+                technical_test: 'Prueba Técnica',
+                assessment_test: 'Prueba de Evaluación',
+                other_interview: 'Otro',
+                
+                // Result options
+                select_result: 'Seleccionar Resultado',
+                passed_result: 'Aprobado',
+                failed_result: 'Reprobado',
+                pending_result: 'Pendiente',
+                cancelled_result: 'Cancelado',
+                
+                // Action buttons
+                delete_job: 'Eliminar Trabajo',
+                delete_confirmation: '¿Estás seguro de que quieres eliminar esta aplicación de trabajo? Esta acción no se puede deshacer.',
+                confirm_delete: 'Eliminar',
+                clear_data: 'Borrar Todos los Datos',
+                clear_data_confirmation: 'Esto eliminará permanentemente todas tus aplicaciones de trabajo. Esta acción no se puede deshacer. ¿Estás seguro?',
+                confirm_clear: 'Borrar Todos los Datos',
+                
+                // Status options
+                to_apply: 'Por Aplicar',
+                applied: 'Aplicado',
+                interview_scheduled: 'Entrevista Programada',
+                interview_completed: 'Entrevista Completada',
+                rejected: 'Rechazado',
+                accepted: 'Aceptado',
+                
+                // Contract filter options
+                cdi: 'CDI',
+                cdd: 'CDD',
+                freelance: 'Freelance',
+                internship: 'Pasantía',
+                part_time: 'Tiempo Parcial',
+                temporary: 'Temporal',
+                other: 'Otro',
+                
+                // Date filter options
+                today: 'Hoy',
+                this_week: 'Esta Semana',
+                this_month: 'Este Mes',
+                this_quarter: 'Este Trimestre',
+                this_year: 'Este Año',
+                
+                // Theme options
+                blue_theme: 'Azul (Predeterminado)',
+                green_theme: 'Verde',
+                purple_theme: 'Púrpura',
+                orange_theme: 'Naranja',
+                dark_theme: 'Modo Oscuro',
+                
+                // Language options
+                english: 'English',
+                spanish: 'Español',
+                french: 'Français',
+                german: 'Deutsch',
+                italian: 'Italiano',
+                portuguese: 'Português',
+                arabic: 'العربية',
+                chinese: '中文',
+                japanese: '日本語',
+                korean: '한국어',
+                
+                // Other elements
+                archive: 'Archivar',
+                unarchive: 'Desarchivar',
+                no_archived_jobs_yet: 'Aún no hay trabajos archivados',
+                no_archived_jobs_found: 'No se encontraron trabajos archivados',
                 try_search: 'Intenta ajustar los términos de búsqueda',
                 add_first_job: '¡Agrega tu primera aplicación de trabajo para comenzar!',
                 add_first_job_btn: 'Agregar Tu Primer Trabajo',
@@ -1796,92 +2094,188 @@ class JobTracker {
                 data_imported: '¡Datos importados exitosamente!',
                 data_cleared: '¡Todos los datos borrados exitosamente!',
                 import_error: 'Error al importar datos. Por favor verifica el formato del archivo.',
-                modal_title_add: 'Agregar Nuevo Trabajo',
-                modal_title_edit: 'Editar Trabajo',
-                full_view: 'Vista Completa',
-                compact_view: 'Vista Compacta',
-                view_rapid: 'Ver Rápido',
-                view_complete: 'Ver Completo',
-                hide_rapid: 'Ocultar Rápido',
-                complete_details: 'Detalles Completos',
-                archive: 'Archivar',
-                unarchive: 'Desarchivar',
-                no_archived_jobs_yet: 'Aún no hay trabajos archivados',
-                no_archived_jobs_found: 'No se encontraron trabajos archivados',
-                chart_title: 'Distribución de Estados de Solicitud de Trabajo'
+                
+                // Placeholder translations
+                company_name_placeholder: 'Ingresa el nombre de la empresa',
+                position_title_placeholder: 'Ingresa el título del puesto',
+                location_placeholder: 'Ciudad, Estado',
+                contact_person_placeholder: 'Ingresa el nombre del contacto',
+                job_url_placeholder: 'https://...',
+                contract_duration_placeholder: 'ej., 6 meses, 1 año',
+                salary_amount_placeholder: 'ej., 50000',
+                notes_placeholder: 'Notas adicionales...',
+                interview_notes_placeholder: 'Detalles de la entrevista, comentarios, próximos pasos...'
             },
             fr: {
+                // Main app
                 app_title: 'Suivi des Candidatures',
-                add_job_text: 'Ajouter un Emploi',
-                settings_title: 'Paramètres',
-                language_section_title: 'Langue',
-                language_label: 'Sélectionner la Langue:',
-                theme_section_title: 'Thème',
-                theme_label: 'Thème de Couleur:',
-                data_section_title: 'Gestion des Données',
-                export_data_text: 'Exporter les Données',
-                import_data_text: 'Importer les Données',
-                clear_data_text: 'Effacer Toutes les Données',
-                about_section_title: 'À Propos',
-                app_version: 'Version: 1.0.0',
-                app_description: 'Suivi des Candidatures - Suivez vos candidatures facilement',
-                sort_label: 'Trier par:',
-                status_filter_label: 'Statut:',
-                contract_filter_label: 'Type de Contrat:',
-                date_filter_label: 'Période:',
-                all_statuses: 'Tous les Statuts',
-                all_contracts: 'Tous les Contrats',
-                all_time: 'Tout le Temps',
-                total_jobs_label: 'Total des Emplois',
-                applied_jobs_label: 'Candidaté',
-                interview_jobs_label: 'Entretiens',
-                success_rate_label: 'Taux de Réussite',
-                company_name_label: 'Nom de l\'Entreprise *',
-                position_title_label: 'Titre du Poste *',
-                contract_type_label: 'Type de Contrat',
-                contract_duration_label: 'Durée du Contrat',
-                application_date_label: 'Date de Candidature',
-                start_date_label: 'Date de Début',
-                job_status_label: 'Statut',
-                salary_amount_label: 'Montant du Salaire',
-                salary_period_label: 'Période du Salaire',
-                location_label: 'Localisation',
-                contact_person_label: 'Personne de Contact',
-                job_url_label: 'URL de l\'Emploi',
-                interview_results_label: 'Résultats des Entretiens et Tests',
-                interview_date_label: 'Date',
-                interview_type_label: 'Type',
-                interview_result_label: 'Résultat',
-                interview_notes_label: 'Détails',
-                add_interview_text: 'Ajouter une Autre Entretien/Test',
-                notes_label: 'Notes Générales',
-                save_job_btn: 'Sauvegarder',
-                delete_modal_title: 'Supprimer l\'Emploi',
-                delete_confirmation_text: 'Êtes-vous sûr de vouloir supprimer cette candidature? Cette action ne peut pas être annulée.',
-                clear_data_title: 'Effacer Toutes les Données',
-                clear_data_confirmation: 'Cela supprimera définitivement toutes vos candidatures. Cette action ne peut pas être annulée. Êtes-vous sûr?',
+                add_job: 'Ajouter un Emploi',
+                search_jobs: 'Rechercher des emplois...',
+                archived_jobs: 'Emplois Archivés',
+                search_archived_jobs: 'Rechercher des emplois archivés...',
+                
+                // Sort options
+                sort_by: 'Trier par:',
+                sort_date_applied_desc: 'Date de Candidature (Plus Récent)',
+                sort_date_applied_asc: 'Date de Candidature (Plus Ancien)',
+                sort_start_date_desc: 'Date de Début (Plus Tard)',
+                sort_start_date_asc: 'Date de Début (Plus Tôt)',
+                sort_salary_desc: 'Salaire (Élevé à Faible)',
+                sort_salary_asc: 'Salaire (Faible à Élevé)',
+                sort_status: 'Statut',
+                sort_company: 'Nom de l\'Entreprise',
+                sort_position: 'Titre du Poste',
+                
+                // Reports
+                chart_title: 'Distribution des États de Demande d\'Emploi',
                 status_to_apply: 'À Postuler',
                 status_applied: 'Candidaté',
                 status_interview_scheduled: 'Entretien Programmé',
                 status_interview_completed: 'Entretien Terminé',
                 status_rejected: 'Rejeté',
                 status_accepted: 'Accepté',
-                edit: 'Modifier',
-                delete: 'Supprimer',
-                status: 'Statut',
-                applied: 'Candidaté',
-                contract_type: 'Contrat',
-                duration: 'Durée',
-                start_date: 'Date de Début',
+                reports: 'Rapports',
+                filter_by_status: 'Statut:',
+                filter_by_contract: 'Type de Contrat:',
+                filter_by_date: 'Période:',
+                all_statuses: 'Tous les Statuts',
+                all_contracts: 'Tous les Contrats',
+                all_time: 'Tout le Temps',
+                total_jobs: 'Total des Emplois',
+                applied_jobs: 'Candidaté',
+                interview_jobs: 'Entretiens',
+                success_rate: 'Taux de Réussite',
+                
+                // Settings
+                settings: 'Paramètres',
+                language_section_title: 'Langue',
+                language_label: 'Sélectionner la Langue:',
+                theme_section_title: 'Thème',
+                theme_label: 'Thème de Couleur:',
+                data_section_title: 'Gestion des Données',
+                about_section_title: 'À Propos',
+                export_data: 'Exporter les Données',
+                import_data: 'Importer les Données',
+                clear_data: 'Effacer Toutes les Données',
+                app_version: 'Version: 1.0.0',
+                app_description: 'Suivi des Candidatures - Suivez vos candidatures facilement',
+                app_copyright: '© 2024 Soma Moradi. Tous droits réservés.',
+                app_license: 'Usage personnel uniquement. Usage commercial interdit.',
+                
+                // Modal elements
+                add_job: 'Ajouter un Nouvel Emploi',
+                edit_job: 'Modifier l\'Emploi',
+                company_name: 'Nom de l\'Entreprise *',
+                position_title: 'Titre du Poste *',
+                job_url: 'URL de l\'Emploi',
+                contact_person: 'Personne de Contact',
                 location: 'Localisation',
-                salary: 'Salaire',
-                contact: 'Contact',
-                url: 'URL',
-                notes: 'Notes',
+                status: 'Statut',
+                application_date: 'Date de Candidature',
+                contract_type: 'Type de Contrat',
+                contract_duration: 'Durée du Contrat',
+                start_date: 'Date de Début',
+                salary_amount: 'Montant du Salaire',
+                salary_period: 'Période du Salaire',
+                notes: 'Notes Générales',
                 interview_results: 'Résultats des Entretiens et Tests',
-                view_job: 'Voir l\'Emploi',
-                no_jobs_yet: 'Aucun emploi pour le moment',
-                no_jobs_found: 'Aucun emploi trouvé',
+                interview_date: 'Date',
+                interview_type: 'Type',
+                interview_result: 'Résultat',
+                interview_notes: 'Détails',
+                add_interview: 'Ajouter une Autre Entretien/Test',
+                save_job: 'Sauvegarder',
+                cancel: 'Annuler',
+                
+                // Contract options
+                select_contract: 'Sélectionner le Type de Contrat',
+                cdi_contract: 'CDI (Permanent)',
+                cdd_contract: 'CDD (Durée Déterminée)',
+                freelance_contract: 'Freelance',
+                internship_contract: 'Stage',
+                part_time_contract: 'Temps Partiel',
+                temporary_contract: 'Temporaire',
+                other_contract: 'Autre',
+                
+                // Period options
+                select_period: 'Sélectionner la Période',
+                hour_period: 'Par Heure',
+                day_period: 'Par Jour',
+                month_period: 'Par Mois',
+                year_period: 'Par An',
+                
+                // Interview options
+                select_interview_type: 'Sélectionner le Type',
+                phone_interview: 'Entretien Téléphonique',
+                video_interview: 'Entretien Vidéo',
+                onsite_interview: 'Entretien Sur Place',
+                technical_test: 'Test Technique',
+                assessment_test: 'Test d\'Évaluation',
+                other_interview: 'Autre',
+                
+                // Result options
+                select_result: 'Sélectionner le Résultat',
+                passed_result: 'Réussi',
+                failed_result: 'Échoué',
+                pending_result: 'En Attente',
+                cancelled_result: 'Annulé',
+                
+                // Action buttons
+                delete_job: 'Supprimer l\'Emploi',
+                delete_confirmation: 'Êtes-vous sûr de vouloir supprimer cette candidature? Cette action ne peut pas être annulée.',
+                confirm_delete: 'Supprimer',
+                clear_data: 'Effacer Toutes les Données',
+                clear_data_confirmation: 'Cela supprimera définitivement toutes vos candidatures. Cette action ne peut pas être annulée. Êtes-vous sûr?',
+                confirm_clear: 'Effacer Toutes les Données',
+                
+                // Status options
+                to_apply: 'À Postuler',
+                applied: 'Candidaté',
+                interview_scheduled: 'Entretien Programmé',
+                interview_completed: 'Entretien Terminé',
+                rejected: 'Rejeté',
+                accepted: 'Accepté',
+                
+                // Contract filter options
+                cdi: 'CDI',
+                cdd: 'CDD',
+                freelance: 'Freelance',
+                internship: 'Stage',
+                part_time: 'Temps Partiel',
+                temporary: 'Temporaire',
+                other: 'Autre',
+                
+                // Date filter options
+                today: 'Aujourd\'hui',
+                this_week: 'Cette Semaine',
+                this_month: 'Ce Mois',
+                this_quarter: 'Ce Trimestre',
+                this_year: 'Cette Année',
+                
+                // Theme options
+                blue_theme: 'Bleu (Par Défaut)',
+                green_theme: 'Vert',
+                purple_theme: 'Violet',
+                orange_theme: 'Orange',
+                dark_theme: 'Mode Sombre',
+                
+                // Language options
+                english: 'English',
+                spanish: 'Español',
+                french: 'Français',
+                german: 'Deutsch',
+                italian: 'Italiano',
+                portuguese: 'Português',
+                arabic: 'العربية',
+                chinese: '中文',
+                japanese: '日本語',
+                korean: '한국어',
+                
+                // Other elements
+                archive: 'Archiver',
+                unarchive: 'Désarchiver',
+                no_archived_jobs_yet: 'Aucun emploi archivé pour le moment',
+                no_archived_jobs_found: 'Aucun emploi archivé trouvé',
                 try_search: 'Essayez d\'ajuster les termes de recherche',
                 add_first_job: 'Ajoutez votre première candidature pour commencer!',
                 add_first_job_btn: 'Ajouter Votre Premier Emploi',
@@ -1891,19 +2285,17 @@ class JobTracker {
                 data_imported: 'Données importées avec succès!',
                 data_cleared: 'Toutes les données effacées avec succès!',
                 import_error: 'Erreur lors de l\'importation des données. Veuillez vérifier le format du fichier.',
-                modal_title_add: 'Ajouter un Nouvel Emploi',
-                modal_title_edit: 'Modifier l\'Emploi',
-                full_view: 'Vue Complète',
-                compact_view: 'Vue Compacte',
-                view_rapid: 'Voir Rapide',
-                view_complete: 'Voir Complet',
-                hide_rapid: 'Masquer Rapide',
-                complete_details: 'Détails Complets',
-                archive: 'Archiver',
-                unarchive: 'Désarchiver',
-                no_archived_jobs_yet: 'Aucun emploi archivé pour le moment',
-                no_archived_jobs_found: 'Aucun emploi archivé trouvé',
-                chart_title: 'Distribution des États de Demande d\'Emploi'
+                
+                // Placeholder translations
+                company_name_placeholder: 'Entrez le nom de l\'entreprise',
+                position_title_placeholder: 'Entrez le titre du poste',
+                location_placeholder: 'Ville, État',
+                contact_person_placeholder: 'Entrez le nom du contact',
+                job_url_placeholder: 'https://...',
+                contract_duration_placeholder: 'ex., 6 mois, 1 an',
+                salary_amount_placeholder: 'ex., 50000',
+                notes_placeholder: 'Notes supplémentaires...',
+                interview_notes_placeholder: 'Détails de l\'entretien, commentaires, prochaines étapes...'
             }
             // Add more languages as needed
         };
