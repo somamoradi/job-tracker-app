@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <link rel="manifest" href="assets/manifest.json">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/app-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/app-icon.png">
+    <meta name="theme-color" content="#2196F3">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 id="app-title">Job Tracker</h1>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="jobs">
+                    <span class="tab-icon">💼</span>
+                    <span class="tab-text" id="tab-jobs">Jobs</span>
+                </button>
+                <button class="nav-tab" data-tab="archive">
+                    <span class="tab-icon">📦</span>
+                    <span class="tab-text" id="tab-archive">Archive</span>
+                </button>
+                <button class="nav-tab" data-tab="reports">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-text" id="tab-reports">Reports</span>
+                </button>
+                <button class="nav-tab" data-tab="settings">
+                    <span class="tab-icon">⚙️</span>
+                    <span class="tab-text" id="tab-settings">Settings</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Jobs Tab Content -->
+        <div id="jobs-tab" class="tab-content active">
+            <div class="actions-bar">
+                <div class="actions-left">
+                    <button id="add-job-btn" class="btn btn-primary">
+                        <span class="icon">+</span> <span id="add-job-text">Add Job</span>
+                    </button>
+                </div>
+                <div class="actions-center">
+                    <div class="search-container">
+                        <input type="text" id="search-jobs" placeholder="Search jobs..." class="search-input">
+                    </div>
+                </div>
+                <div class="actions-right">
+                    <div class="sort-container">
+                        <label for="sort-jobs" id="sort-label">Sort by:</label>
+                        <select id="sort-jobs" class="sort-select">
+                            <option value="date-applied-desc" id="sort-date-applied-desc">Date Applied (Newest)</option>
+                            <option value="date-applied-asc" id="sort-date-applied-asc">Date Applied (Oldest)</option>
+                            <option value="start-date-desc" id="sort-start-date-desc">Start Date (Latest)</option>
+                            <option value="start-date-asc" id="sort-start-date-asc">Start Date (Earliest)</option>
+                            <option value="salary-desc" id="sort-salary-desc">Salary (High to Low)</option>
+                            <option value="salary-asc" id="sort-salary-asc">Salary (Low to High)</option>
+                            <option value="status" id="sort-status">Status</option>
+                            <option value="company" id="sort-company">Company Name</option>
+                            <option value="position" id="sort-position">Position Title</option>
+                        </select>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="list" title="List View" id="view-list-btn">
+                            <span class="view-icon">📋</span>
+                        </button>
+                        <button class="view-btn" data-view="grid" title="Grid View" id="view-grid-btn">
+                            <span class="view-icon">⊞</span>
+                        </button>
+                        <button class="view-btn" data-view="cards" title="Card View" id="view-cards-btn">
+                            <span class="view-icon">🃏</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jobs-list" id="jobs-list">
+                <!-- Jobs will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Archive Tab Content -->
+        <div id="archive-tab" class="tab-content">
+            <div class="actions-bar">
+                <div class="actions-left">
+                    <h2 id="archive-title">Archived Jobs</h2>
+                </div>
+                <div class="actions-center">
+                    <div class="search-container">
+                        <input type="text" id="search-archive" placeholder="Search archived jobs..." class="search-input">
+                    </div>
+                </div>
+                <div class="actions-right">
+                    <div class="sort-container">
+                        <label for="sort-archive" id="sort-archive-label">Sort by:</label>
+                        <select id="sort-archive" class="sort-select">
+                            <option value="date-applied-desc" id="sort-archive-date-applied-desc">Date Applied (Newest)</option>
+                            <option value="date-applied-asc" id="sort-archive-date-applied-asc">Date Applied (Oldest)</option>
+                            <option value="start-date-desc" id="sort-archive-start-date-desc">Start Date (Latest)</option>
+                            <option value="start-date-asc" id="sort-archive-start-date-asc">Start Date (Earliest)</option>
+                            <option value="salary-desc" id="sort-archive-salary-desc">Salary (High to Low)</option>
+                            <option value="salary-asc" id="sort-archive-salary-asc">Salary (Low to High)</option>
+                            <option value="status" id="sort-archive-status">Status</option>
+                            <option value="company" id="sort-archive-company">Company Name</option>
+                            <option value="position" id="sort-archive-position">Position Title</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jobs-list" id="archive-list">
+                <!-- Archived jobs will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Reports Tab Content -->
+        <div id="reports-tab" class="tab-content">
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label for="status-filter" id="status-filter-label">Status:</label>
+                    <select id="status-filter" class="filter-select">
+                        <option value="" id="all-statuses">All Statuses</option>
+                        <option value="to-apply" id="to-apply-option">To Apply</option>
+                        <option value="applied" id="applied-option">Applied</option>
+                        <option value="interview-scheduled" id="interview-scheduled-option">Interview Scheduled</option>
+                        <option value="interview-completed" id="interview-completed-option">Interview Completed</option>
+                        <option value="rejected" id="rejected-option">Rejected</option>
+                        <option value="accepted" id="accepted-option">Accepted</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="contract-filter" id="contract-filter-label">Contract Type:</label>
+                    <select id="contract-filter" class="filter-select">
+                        <option value="" id="all-contracts">All Contracts</option>
+                        <option value="cdi" id="cdi-option">CDI</option>
+                        <option value="cdd" id="cdd-option">CDD</option>
+                        <option value="freelance" id="freelance-option">Freelance</option>
+                        <option value="internship" id="internship-option">Internship</option>
+                        <option value="part-time" id="part-time-option">Part-time</option>
+                        <option value="temporary" id="temporary-option">Temporary</option>
+                        <option value="other" id="other-contract-option">Other</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date-filter" id="date-filter-label">Date Range:</label>
+                    <select id="date-filter" class="filter-select">
+                        <option value="" id="all-time">All Time</option>
+                        <option value="today" id="today-option">Today</option>
+                        <option value="week" id="week-option">This Week</option>
+                        <option value="month" id="month-option">This Month</option>
+                        <option value="quarter" id="quarter-option">This Quarter</option>
+                        <option value="year" id="year-option">This Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="total-jobs-label">Total Jobs</h3>
+                    <div id="total-jobs" class="stat-number">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3 id="applied-jobs-label">Applied</h3>
+                    <div id="applied-jobs" class="stat-number">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3 id="interview-jobs-label">Interviews</h3>
+                    <div id="interview-jobs" class="stat-number">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3 id="success-rate-label">Success Rate</h3>
+                    <div id="success-rate" class="stat-number">0%</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 id="chart-title">Job Application Status Distribution</h3>
+                <canvas id="status-chart" width="800" height="400"></canvas>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #f57c00;"></div>
+                        <span id="legend-to-apply">To Apply</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #1976d2;"></div>
+                        <span id="legend-applied">Applied</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #7b1fa2;"></div>
+                        <span id="legend-interview-scheduled">Interview Scheduled</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #388e3c;"></div>
+                        <span id="legend-interview-completed">Interview Completed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #d32f2f;"></div>
+                        <span id="legend-rejected">Rejected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #2e7d32;"></div>
+                        <span id="legend-accepted">Accepted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab Content -->
+        <div id="settings-tab" class="tab-content">
+            <div class="settings-section">
+                <h2 id="settings-title">Settings</h2>
+                
+                <!-- Language Settings -->
+                <div class="setting-group">
+                    <h3 id="language-section-title">Language</h3>
+                    <div class="setting-item">
+                        <label for="language-select" id="language-label">Select Language:</label>
+                        <select id="language-select" class="setting-select">
+                            <option value="en" id="english-option">English</option>
+                            <option value="es" id="spanish-option">Español</option>
+                            <option value="fr" id="french-option">Français</option>
+                            <option value="de" id="german-option">Deutsch</option>
+                            <option value="it" id="italian-option">Italiano</option>
+                            <option value="pt" id="portuguese-option">Português</option>
+                            <option value="ar" id="arabic-option">العربية</option>
+                            <option value="zh" id="chinese-option">中文</option>
+                            <option value="ja" id="japanese-option">日本語</option>
+                            <option value="ko" id="korean-option">한국어</option>
+                            <option value="fa" id="persian-option">فارسی</option>
+                            <option value="ku" id="kurdish-option">کوردی</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Theme Settings -->
+                <div class="setting-group">
+                    <h3 id="theme-section-title">Theme</h3>
+                    <div class="setting-item">
+                        <label for="theme-select" id="theme-label">Color Theme:</label>
+                        <select id="theme-select" class="setting-select">
+                            <option value="blue" id="blue-theme">Blue (Default)</option>
+                            <option value="green" id="green-theme">Green</option>
+                            <option value="purple" id="purple-theme">Purple</option>
+                            <option value="orange" id="orange-theme">Orange</option>
+                            <option value="dark" id="dark-theme">Dark Mode</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="setting-group">
+                    <h3 id="data-section-title">Data Management</h3>
+                    <div class="setting-item">
+                        <button id="export-data-btn" class="btn btn-secondary">
+                            <span class="icon">📤</span> <span id="export-data-text">Export Data</span>
+                        </button>
+                        <button id="import-data-btn" class="btn btn-secondary">
+                            <span class="icon">📥</span> <span id="import-data-text">Import Data</span>
+                        </button>
+                    </div>
+                    <div class="setting-item">
+                        <button id="clear-data-btn" class="btn btn-danger">
+                            <span class="icon">🗑️</span> <span id="clear-data-text">Clear All Data</span>
+                        </button>
+                    </div>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                </div>
+
+                <!-- App Information -->
+                <div class="setting-group">
+                    <h3 id="about-section-title">About</h3>
+                    <div class="setting-item">
+                        <p id="app-version">Version: 1.0.0</p>
+                        <p id="app-description">Job Application Tracker - Track your job applications with ease</p>
+                        <p id="app-copyright">© 2025 Soma Moradi. All rights reserved.</p>
+                        <p id="app-license">Personal use only. Commercial use prohibited.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Job Modal -->
+    <div id="job-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add New Job</h2>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <form id="job-form">
+                <div class="form-group">
+                    <label for="company-name" id="company-name-label">Company Name *</label>
+                    <input type="text" id="company-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="position-title" id="position-title-label">Position Title *</label>
+                    <input type="text" id="position-title" required>
+                </div>
+                
+                <!-- Contract Information -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contract-type" id="contract-type-label">Contract Type</label>
+                        <select id="contract-type">
+                            <option value="" id="select-contract">Select Contract Type</option>
+                            <option value="cdi" id="cdi-contract">CDI (Permanent)</option>
+                            <option value="cdd" id="cdd-contract">CDD (Fixed-term)</option>
+                            <option value="freelance" id="freelance-contract">Freelance</option>
+                            <option value="internship" id="internship-contract">Internship</option>
+                            <option value="part-time" id="part-time-contract">Part-time</option>
+                            <option value="temporary" id="temporary-contract">Temporary</option>
+                            <option value="other" id="other-contract">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contract-duration" id="contract-duration-label">Contract Duration</label>
+                        <input type="text" id="contract-duration" placeholder="e.g., 6 months, 1 year">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="application-date" id="application-date-label">Application Date</label>
+                        <input type="date" id="application-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="start-date" id="start-date-label">Start Date</label>
+                        <input type="date" id="start-date">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="status" id="status-label">Status</label>
+                        <select id="status">
+                            <option value="to-apply" id="modal-to-apply">To Apply</option>
+                            <option value="applied" id="modal-applied">Applied</option>
+                            <option value="interview-scheduled" id="modal-interview-scheduled">Interview Scheduled</option>
+                            <option value="interview-completed" id="modal-interview-completed">Interview Completed</option>
+                            <option value="rejected" id="modal-rejected">Rejected</option>
+                            <option value="accepted" id="modal-accepted">Accepted</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location" id="location-label">Location</label>
+                        <input type="text" id="location" placeholder="City, State">
+                    </div>
+                </div>
+
+                <!-- Salary Information -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salary-amount" id="salary-amount-label">Salary Amount</label>
+                        <input type="number" id="salary-amount" placeholder="e.g., 50000" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="salary-period" id="salary-period-label">Salary Period</label>
+                        <select id="salary-period">
+                            <option value="" id="select-period">Select Period</option>
+                            <option value="hour" id="hour-period">Per Hour</option>
+                            <option value="day" id="day-period">Per Day</option>
+                            <option value="month" id="month-period">Per Month</option>
+                            <option value="year" id="year-period">Per Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-person" id="contact-person-label">Contact Person</label>
+                    <input type="text" id="contact-person">
+                </div>
+                <div class="form-group">
+                    <label for="job-url" id="job-url-label">Job URL</label>
+                    <input type="url" id="job-url" placeholder="https://...">
+                </div>
+
+                <!-- Interview Results Section -->
+                <div class="form-group">
+                    <label id="interview-results-label">Interview Results & Tests</label>
+                    <div id="interview-results-container">
+                        <div class="interview-result-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="interview-date-1" id="interview-date-label">Date</label>
+                                    <input type="date" class="interview-date" id="interview-date-1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="interview-type-1" id="interview-type-label">Type</label>
+                                    <select class="interview-type" id="interview-type-1">
+                                        <option value="" id="select-interview-type">Select Type</option>
+                                        <option value="phone" id="phone-interview">Phone Interview</option>
+                                        <option value="video" id="video-interview">Video Interview</option>
+                                        <option value="onsite" id="onsite-interview">On-site Interview</option>
+                                        <option value="technical" id="technical-test">Technical Test</option>
+                                        <option value="assessment" id="assessment-test">Assessment Test</option>
+                                        <option value="other" id="other-interview">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="interview-result-1" id="interview-result-label">Result</label>
+                                <select class="interview-result" id="interview-result-1">
+                                    <option value="" id="select-result">Select Result</option>
+                                    <option value="passed" id="passed-result">Passed</option>
+                                    <option value="failed" id="failed-result">Failed</option>
+                                    <option value="pending" id="pending-result">Pending</option>
+                                    <option value="scheduled" id="scheduled-result">Scheduled</option>
+                                    <option value="next-step" id="next-step-result">Pass to next step</option>
+                                    <option value="cancelled" id="cancelled-result">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="interview-notes-1" id="interview-notes-label">Details</label>
+                                <textarea class="interview-notes" id="interview-notes-1" rows="2" placeholder="Interview details, feedback, next steps..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-interview-btn" class="btn btn-secondary btn-small">
+                        <span class="icon">+</span> <span id="add-interview-text">Add Another Interview/Test</span>
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes" id="notes-label">General Notes</label>
+                    <textarea id="notes" rows="3" placeholder="Additional notes..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-job-btn">Save Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h2 id="delete-modal-title">Delete Job</h2>
+                <button class="close-btn" id="close-delete-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="delete-confirmation-text">Are you sure you want to delete this job application? This action cannot be undone.</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="cancel-delete" class="btn btn-secondary">Cancel</button>
+                <button type="button" id="confirm-delete" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Data Confirmation Modal -->
+    <div id="clear-data-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h2 id="clear-data-title">Clear All Data</h2>
+                <button class="close-btn" id="close-clear-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="clear-data-confirmation">This will permanently delete all your job applications. This action cannot be undone. Are you sure?</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="cancel-clear" class="btn btn-secondary">Cancel</button>
+                <button type="button" id="confirm-clear" class="btn btn-danger">Clear All Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/icon-utils.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html> 

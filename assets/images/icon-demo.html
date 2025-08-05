@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Demo - Job Application Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        .icon-small { width: 16px; height: 16px; }
+        .icon-medium { width: 24px; height: 24px; }
+        .icon-large { width: 32px; height: 32px; }
+        
+        /* Status colors */
+        .icon-status-to-apply { fill: #f57c00; }
+        .icon-status-applied { fill: #1976d2; }
+        .icon-status-interview-scheduled { fill: #7b1fa2; }
+        .icon-status-rejected { fill: #d32f2f; }
+        .icon-status-accepted { fill: #2e7d32; }
+        
+        /* Action colors */
+        .icon-action-add { fill: #2196F3; }
+        .icon-action-edit { fill: #FF9800; }
+        .icon-action-delete { fill: #d32f2f; }
+    </style>
+</head>
+<body>
+    <h1>Job Application Tracker - Icon Demo</h1>
+    
+    <div class="demo-section">
+        <h2>Status Icons</h2>
+        <div class="icon-grid">
+            <div class="icon-item">
+                <svg class="svg-icon icon-status-to-apply">
+                    <use href="icons.svg#icon-to-apply"></use>
+                </svg>
+                <span>To Apply</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-status-applied">
+                    <use href="icons.svg#icon-applied"></use>
+                </svg>
+                <span>Applied</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-status-interview-scheduled">
+                    <use href="icons.svg#icon-interview-scheduled"></use>
+                </svg>
+                <span>Interview Scheduled</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-status-rejected">
+                    <use href="icons.svg#icon-rejected"></use>
+                </svg>
+                <span>Rejected</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-status-accepted">
+                    <use href="icons.svg#icon-accepted"></use>
+                </svg>
+                <span>Accepted</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Action Icons</h2>
+        <div class="icon-grid">
+            <div class="icon-item">
+                <svg class="svg-icon icon-action-add">
+                    <use href="icons.svg#icon-add"></use>
+                </svg>
+                <span>Add Job</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-action-edit">
+                    <use href="icons.svg#icon-edit"></use>
+                </svg>
+                <span>Edit Job</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-action-delete">
+                    <use href="icons.svg#icon-delete"></use>
+                </svg>
+                <span>Delete Job</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-archive"></use>
+                </svg>
+                <span>Archive Job</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Navigation Icons</h2>
+        <div class="icon-grid">
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-jobs"></use>
+                </svg>
+                <span>Jobs</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-reports"></use>
+                </svg>
+                <span>Reports</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-settings"></use>
+                </svg>
+                <span>Settings</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-archive-nav"></use>
+                </svg>
+                <span>Archive</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>View Icons</h2>
+        <div class="icon-grid">
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-list"></use>
+                </svg>
+                <span>List View</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-grid"></use>
+                </svg>
+                <span>Grid View</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon">
+                    <use href="icons.svg#icon-cards"></use>
+                </svg>
+                <span>Cards View</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Icon Sizes</h2>
+        <div class="icon-grid">
+            <div class="icon-item">
+                <svg class="svg-icon icon-small">
+                    <use href="icons.svg#icon-add"></use>
+                </svg>
+                <span>Small (16px)</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-medium">
+                    <use href="icons.svg#icon-add"></use>
+                </svg>
+                <span>Medium (24px)</span>
+            </div>
+            <div class="icon-item">
+                <svg class="svg-icon icon-large">
+                    <use href="icons.svg#icon-add"></use>
+                </svg>
+                <span>Large (32px)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Usage Examples</h2>
+        <h3>HTML Usage:</h3>
+        <pre><code>&lt;svg class="svg-icon icon-status-applied"&gt;
+    &lt;use href="assets/images/icons.svg#icon-applied"&gt;&lt;/use&gt;
+&lt;/svg&gt;</code></pre>
+        
+        <h3>JavaScript Usage:</h3>
+        <pre><code>// Create status icon
+const icon = IconUtils.createStatusIcon('applied', 'medium');
+
+// Create action button
+const button = IconUtils.createIconButton('add', 'Add Job', 'btn-primary');</code></pre>
+    </div>
+</body>
+</html> 

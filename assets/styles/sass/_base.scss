@@ -1,0 +1,137 @@
+// Base Styles
+// This file contains fundamental styles and resets
+@use 'variables' as *;
+
+// Reset and Base Styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+body {
+    font-family: $font-family-base;
+    background-color: $bg-secondary;
+    color: $text-primary;
+    line-height: 1.6;
+    transition: $transition-normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-semibold;
+    line-height: 1.2;
+    margin-bottom: $spacing-sm;
+}
+
+h1 { font-size: $font-size-xxl; }
+h2 { font-size: $font-size-xl; }
+h3 { font-size: $font-size-lg; }
+h4 { font-size: $font-size-base; }
+h5 { font-size: $font-size-sm; }
+h6 { font-size: $font-size-xs; }
+
+p {
+    margin-bottom: $spacing-sm;
+    line-height: 1.6;
+}
+
+// Links
+a {
+    color: $primary-blue;
+    text-decoration: none;
+    transition: $transition-fast;
+    
+    &:hover {
+        color: $primary-blue-dark;
+        text-decoration: underline;
+    }
+}
+
+// Lists
+ul, ol {
+    margin-bottom: $spacing-sm;
+    padding-left: $spacing-lg;
+}
+
+li {
+    margin-bottom: $spacing-xs;
+}
+
+// Images
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+// Form Elements
+input, textarea, select, button {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+// Focus States
+*:focus {
+    outline: 2px solid $primary-blue;
+    outline-offset: 2px;
+}
+
+// RTL Language Font Support
+[dir="rtl"] {
+    font-family: $font-family-rtl;
+}
+
+// Apply Vazirmatn font for Arabic, Persian, and Kurdish languages
+[lang="ar"], [lang="fa"], [lang="ku"] {
+    font-family: $font-family-rtl;
+}
+
+// Ensure proper font rendering for RTL languages
+[dir="rtl"] *,
+[lang="ar"] *,
+[lang="fa"] *,
+[lang="ku"] * {
+    font-family: inherit;
+}
+
+// Utility Classes
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: $spacing-sm; }
+.mb-2 { margin-bottom: $spacing-md; }
+.mb-3 { margin-bottom: $spacing-lg; }
+
+.mt-1 { margin-top: $spacing-sm; }
+.mt-2 { margin-top: $spacing-md; }
+.mt-3 { margin-top: $spacing-lg; }
+
+// Loading States
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $border-light;
+    border-radius: 50%;
+    border-top-color: $primary-blue;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+} 

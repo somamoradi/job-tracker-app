@@ -1,0 +1,251 @@
+// Layout Styles
+// This file contains layout-related styles including header, navigation, and main structure
+@use 'variables' as *;
+
+// App Container
+.app-container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    background: $bg-primary;
+    min-height: 100vh;
+    box-shadow: 0 0 20px $shadow-light;
+}
+
+// Header
+.app-header {
+    background: linear-gradient(135deg, $primary-blue, $primary-blue-dark);
+    color: $text-light;
+    padding: $spacing-md;
+    text-align: center;
+    
+    h1 {
+        font-size: $font-size-xxl;
+        margin-bottom: $spacing-md;
+        font-weight: $font-weight-semibold;
+    }
+}
+
+// Navigation Tabs
+.nav-tabs {
+    display: flex;
+    background: rgba($white, 0.1);
+    border-radius: $border-radius-md;
+    padding: $spacing-xs;
+    gap: $spacing-xs;
+}
+
+.nav-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: $text-light;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    font-weight: $font-weight-medium;
+    transition: $transition-normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-xs;
+    
+    &.active {
+        background: rgba($white, 0.2);
+        box-shadow: 0 2px 4px $shadow-light;
+    }
+    
+    &:hover:not(.active) {
+        background: rgba($white, 0.1);
+    }
+}
+
+.tab-icon {
+    font-size: $font-size-lg;
+}
+
+.tab-text {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+}
+
+// Tab Content
+.tab-content {
+    display: none;
+    padding: $spacing-md;
+    
+    &.active {
+        display: block;
+    }
+}
+
+// Actions Bar
+.actions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-lg;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+}
+
+.actions-left,
+.actions-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+}
+
+.actions-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+// Search Container
+.search-container {
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    transition: $transition-normal;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba($primary-blue, 0.1);
+    }
+}
+
+// Sort Container
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    
+    label {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        color: $text-secondary;
+        white-space: nowrap;
+    }
+}
+
+.sort-select {
+    padding: $spacing-sm;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    background: $bg-primary;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: $transition-normal;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba($primary-blue, 0.1);
+    }
+}
+
+// View Toggle
+.view-toggle {
+    display: flex;
+    gap: $spacing-xs;
+}
+
+.view-btn {
+    padding: $spacing-sm;
+    border: 1px solid $border-light;
+    background: $bg-primary;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    transition: $transition-normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &.active {
+        background: $primary-blue;
+        color: $text-light;
+        border-color: $primary-blue;
+    }
+    
+    &:hover:not(.active) {
+        background: $bg-secondary;
+        border-color: $border-medium;
+    }
+}
+
+.view-icon {
+    font-size: $font-size-sm;
+}
+
+// RTL Support for Layout
+[dir="rtl"] {
+    .actions-bar {
+        flex-direction: row-reverse;
+    }
+    
+    .nav-tab {
+        flex-direction: column-reverse;
+    }
+    
+    .sort-container {
+        flex-direction: row-reverse;
+    }
+}
+
+// Responsive Layout
+@media (min-width: $breakpoint-md) {
+    .app-header h1 {
+        font-size: $font-size-xxl;
+    }
+    
+    .actions-bar {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .actions-left {
+        flex: 0 0 auto;
+    }
+    
+    .actions-center {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .actions-right {
+        flex: 0 0 auto;
+    }
+    
+    .search-container {
+        max-width: 300px;
+    }
+    
+    .nav-tab {
+        flex-direction: row;
+        gap: $spacing-sm;
+    }
+    
+    .tab-text {
+        font-size: $font-size-sm;
+    }
+}
+
+@media (min-width: $breakpoint-lg) {
+    .app-container {
+        max-width: $container-max-width;
+    }
+    
+    .tab-content {
+        padding: $spacing-lg;
+    }
+} 

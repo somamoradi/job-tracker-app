@@ -1,0 +1,280 @@
+// Responsive Design
+// This file contains all media queries and responsive design rules
+@use 'variables' as *;
+
+// Mobile First Approach
+// Base styles are for mobile, then we enhance for larger screens
+
+// Small screens (up to 480px)
+@media (max-width: $breakpoint-sm) {
+    .jobs-list.view-grid,
+    .jobs-list.view-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-bar {
+        gap: $spacing-sm;
+    }
+    
+    .actions-left,
+    .actions-center {
+        order: 2;
+        width: 50%;
+        button , input{
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    .actions-right{
+        width: 100%;
+        justify-content: space-between;
+        order: 1;
+    }
+    .search-container {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .view-toggle {
+        justify-content: center;
+    }
+}
+
+// Medium screens (768px and up)
+@media (min-width: $breakpoint-md) {
+    .app-header h1 {
+        font-size: $font-size-xxl;
+    }
+    
+    .actions-bar {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .actions-left {
+        flex: 0 0 auto;
+    }
+    
+    .actions-center {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .actions-right {
+        flex: 0 0 auto;
+    }
+    
+    .search-container {
+        max-width: 300px;
+    }
+    
+    .job-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: $spacing-md;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $spacing-md;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: $spacing-md;
+    }
+    
+    .filters-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: $spacing-md;
+    }
+    
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+    }
+    
+    .nav-tab {
+        flex-direction: row;
+        gap: $spacing-sm;
+    }
+    
+    .tab-text {
+        font-size: $font-size-sm;
+    }
+}
+
+// Large screens (1024px and up)
+@media (min-width: $breakpoint-lg) {
+    .app-container {
+        max-width: $container-max-width;
+    }
+    
+    .tab-content {
+        padding: $spacing-lg;
+    }
+    
+    .jobs-list.view-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+    
+    .jobs-list.view-cards {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+// Extra large screens (1200px and up)
+@media (min-width: $breakpoint-xl) {
+    .jobs-list.view-grid {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+    
+    .jobs-list.view-cards {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+}
+
+// Modal Responsive Design
+@media (max-width: $breakpoint-md) {
+    .modal-content {
+        margin: $spacing-md;
+        max-width: calc(100% - #{$spacing-md * 2});
+    }
+    
+    .modal-header {
+        padding: $spacing-sm;
+    }
+    
+    .modal-header h2 {
+        font-size: $font-size-lg;
+    }
+    
+    #job-form {
+        padding: $spacing-sm;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: $spacing-sm;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+// Chart Responsive Design
+@media (max-width: $breakpoint-md) {
+    .chart-container {
+        padding: $spacing-sm;
+    }
+    
+    .chart-container h3 {
+        font-size: $font-size-base;
+    }
+    
+    #status-chart {
+        height: 300px;
+    }
+    
+    .chart-legend {
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+    
+    .legend-item {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .chart-container {
+        padding: $spacing-xs;
+    }
+    
+    #status-chart {
+        height: 250px;
+    }
+    
+    .chart-legend {
+        gap: $spacing-xs;
+    }
+    
+    .legend-item {
+        font-size: $font-size-xs;
+    }
+}
+
+// Dark Theme Responsive Adjustments
+@media (min-width: $breakpoint-md) {
+    .theme-dark .chart-container {
+        padding: $spacing-lg;
+    }
+    
+    .theme-dark .chart-container h3 {
+        font-size: $font-size-lg;
+    }
+    
+    .theme-dark .chart-legend {
+        flex-direction: row;
+        gap: $spacing-md;
+    }
+    
+    .theme-dark .legend-item {
+        width: auto;
+    }
+}
+
+// RTL Responsive Adjustments
+@media (min-width: $breakpoint-md) {
+    [dir="rtl"] .actions-bar {
+        flex-direction: row;
+    }
+    
+    [dir="rtl"] .nav-tab {
+        flex-direction: row;
+    }
+    
+    [dir="rtl"] .sort-container {
+        flex-direction: row;
+    }
+}
+
+// Print Styles
+@media print {
+    .app-header,
+    .nav-tabs,
+    .actions-bar,
+    .modal,
+    .btn {
+        display: none !important;
+    }
+    
+    .app-container {
+        box-shadow: none;
+        max-width: none;
+    }
+    
+    .job-card {
+        break-inside: avoid;
+        border: 1px solid $border-light;
+        margin-bottom: $spacing-md;
+    }
+    
+    .tab-content {
+        display: block !important;
+        padding: 0;
+    }
+} 

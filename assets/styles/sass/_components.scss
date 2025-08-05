@@ -1,0 +1,653 @@
+// Components
+// This file contains reusable UI components like buttons, cards, modals, etc.
+@use 'variables' as *;
+@use 'sass:color';
+
+// Buttons
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+    padding: $spacing-sm $spacing-md;
+    border: none;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $transition-normal;
+    white-space: nowrap;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    &.btn-primary {
+        background: $primary-blue;
+        color: $text-light;
+
+        &:hover:not(:disabled) {
+            background: $primary-blue-dark;
+        }
+    }
+
+    &.btn-secondary {
+        background: $bg-secondary;
+        color: $text-primary;
+        border: 1px solid $border-light;
+
+        &:hover:not(:disabled) {
+            background: $border-light;
+        }
+    }
+
+    &.btn-info {
+        background: $primary-blue;
+        color: $text-light;
+
+        &:hover:not(:disabled) {
+            background: $primary-blue-dark;
+        }
+    }
+
+    &.btn-danger {
+        background: $status-rejected;
+        color: $text-light;
+
+        &:hover:not(:disabled) {
+            background: color.adjust($status-rejected, $lightness: -10%);
+        }
+    }
+
+    &.btn-small {
+        padding: $spacing-sm $spacing-sm;
+        font-size: $font-size-xs;
+    }
+}
+
+.icon {
+    font-size: $font-size-sm;
+    line-height: 1;
+}
+
+// SVG Icon Styles
+.svg-icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: middle;
+}
+
+.icon-small {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-medium {
+    width: 24px;
+    height: 24px;
+}
+
+.icon-large {
+    width: 32px;
+    height: 32px;
+}
+
+// Status Icon Colors
+.icon-status-to-apply {
+    fill: $status-to-apply;
+}
+
+.icon-status-applied {
+    fill: $status-applied;
+}
+
+.icon-status-interview-scheduled {
+    fill: $status-interview-scheduled;
+}
+
+.icon-status-rejected {
+    fill: $status-rejected;
+}
+
+.icon-status-accepted {
+    fill: $status-accepted;
+}
+
+// Action Icon Colors
+.icon-action-add {
+    fill: $primary-blue;
+}
+
+.icon-action-edit {
+    fill: $primary-orange;
+}
+
+.icon-action-delete {
+    fill: $status-rejected;
+}
+
+// Job Cards
+.jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    &.view-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: $spacing-md;
+    }
+
+    &.view-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: $spacing-md;
+    }
+}
+
+.job-card {
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    transition: $transition-normal;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 4px 12px $shadow-light;
+        transform: translateY(-2px);
+    }
+
+    // List view styles
+    .jobs-list.view-list & {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        flex-direction: column;
+
+        .job-header {
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            margin-bottom: $spacing-xs;
+        }
+
+        .job-company {
+            font-size: $font-size-sm;
+            color: $text-secondary;
+            margin-bottom: $spacing-sm;
+        }
+
+        .job-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: $spacing-md;
+        }
+
+        .job-detail {
+            font-size: $font-size-sm;
+
+            strong {
+                color: $text-secondary;
+            }
+        }
+
+        .interview-results-section {
+            margin-top: $spacing-sm;
+        }
+
+        .interview-result-item {
+            margin-bottom: $spacing-xs;
+        }
+
+        .job-notes {
+            margin-top: $spacing-sm;
+            font-size: $font-size-sm;
+            color: $text-secondary;
+        }
+    }
+
+    // Grid view styles
+    .jobs-list.view-grid & {
+        .job-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: $spacing-sm;
+        }
+
+        .job-detail {
+            font-size: $font-size-sm;
+        }
+
+        .interview-results-section {
+            margin-top: $spacing-sm;
+        }
+
+        .interview-result-item {
+            margin-bottom: $spacing-xs;
+        }
+    }
+
+    // Card view styles
+    .jobs-list.view-cards & {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        &:hover {
+            box-shadow: 0 6px 16px $shadow-medium;
+        }
+
+        .job-title {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            margin-bottom: $spacing-xs;
+            color: $primary-blue;
+        }
+
+        .job-company {
+            font-size: $font-size-sm;
+            color: $text-secondary;
+            margin-bottom: $spacing-sm;
+        }
+
+        .job-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-sm;
+        }
+
+        .job-detail {
+            font-size: $font-size-sm;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .interview-results-section {
+            margin-top: $spacing-sm;
+        }
+
+        .interview-result-item {
+            margin-bottom: $spacing-xs;
+        }
+
+        .job-notes {
+            margin-top: $spacing-sm;
+            font-size: $font-size-sm;
+            color: $text-secondary;
+
+            p {
+                margin-bottom: $spacing-xs;
+            }
+        }
+    }
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-sm;
+}
+
+.job-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $spacing-xs;
+    color: $primary-blue;
+}
+
+.job-company {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    margin-bottom: $spacing-sm;
+}
+
+.job-actions {
+    display: flex;
+    gap: $spacing-sm;
+
+    .btn {
+        padding: $spacing-xs;
+        font-size: $font-size-xs;
+    }
+}
+
+.job-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    margin-bottom: $spacing-sm;
+}
+
+.job-detail {
+    font-size: $font-size-sm;
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+
+    strong {
+        color: $text-secondary;
+        font-weight: $font-weight-medium;
+    }
+}
+
+.job-status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+// Status styles
+.status-to-apply {
+    background: #fff3e0;
+    color: $status-to-apply;
+}
+
+.status-applied {
+    background: #e3f2fd;
+    color: $status-applied;
+}
+
+.status-interview-scheduled {
+    background: #f3e5f5;
+    color: $status-interview-scheduled;
+}
+
+.status-interview-completed {
+    background: #e8f5e8;
+    color: $status-interview-completed;
+}
+
+.status-rejected {
+    background: #ffebee;
+    color: $status-rejected;
+}
+
+.status-accepted {
+    background: #e8f5e8;
+    color: $status-accepted;
+}
+
+// Contract badges
+.contract-badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: $spacing-sm;
+}
+
+.contract-cdi {
+    background: #e8f5e8;
+    color: $contract-cdi;
+}
+
+.contract-cdd {
+    background: #fff3e0;
+    color: $contract-cdd;
+}
+
+.contract-freelance {
+    background: #e3f2fd;
+    color: $contract-freelance;
+}
+
+.contract-internship {
+    background: #f3e5f5;
+    color: $contract-internship;
+}
+
+.contract-part-time {
+    background: #fce4ec;
+    color: $contract-part-time;
+}
+
+.contract-temporary {
+    background: #f1f8e9;
+    color: $contract-temporary;
+}
+
+.contract-other {
+    background: #f5f5f5;
+    color: $contract-other;
+}
+
+.job-notes {
+    margin-top: $spacing-sm;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+
+    strong {
+        color: $text-primary;
+        font-weight: $font-weight-medium;
+    }
+
+    p {
+        margin-bottom: $spacing-xs;
+        line-height: 1.5;
+    }
+}
+
+// Interview Results
+.interview-results-preview {
+    margin-top: $spacing-sm;
+    border-top: 1px solid $border-light;
+    padding-top: $spacing-sm;
+}
+
+.interview-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    background: $bg-secondary;
+    transition: $transition-normal;
+
+    &:hover {
+        background: color.adjust($bg-secondary, $lightness: -5%);
+    }
+
+    &.expanded {
+        background: $primary-blue;
+        color: $text-light;
+    }
+}
+
+.interview-preview-title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+}
+
+.interview-icon {
+    font-size: $font-size-base;
+}
+
+.interview-count {
+    background: rgba($white, 0.2);
+    color: $text-primary;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+}
+
+.interview-preview-stats {
+    display: flex;
+    gap: $spacing-sm;
+}
+
+.stat-passed {
+    background: rgba($interview-passed, 0.1);
+    color: $interview-passed;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+}
+
+.stat-failed {
+    background: rgba($interview-failed, 0.1);
+    color: $interview-failed;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+}
+
+.stat-pending {
+    background: rgba($interview-pending, 0.1);
+    color: $interview-pending;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+}
+
+.expand-icon {
+    font-size: $font-size-sm;
+    transition: $transition-normal;
+}
+
+.interview-preview-header.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.interview-results-details {
+    margin-top: $spacing-sm;
+    padding: $spacing-sm;
+    background: $bg-secondary;
+    border-radius: $border-radius-sm;
+}
+
+.interview-results-section {
+    margin-top: $spacing-md;
+}
+
+.interview-result-item {
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    padding: $spacing-md;
+    margin-bottom: $spacing-sm;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.interview-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+}
+
+.interview-result-type {
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+}
+
+.interview-result-date {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+}
+
+.interview-result-status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.interview-passed {
+    background: #e8f5e8;
+    color: $interview-passed;
+}
+
+.interview-next-step {
+    background: #d1f2f8;
+    color: $interview-next-step;
+}
+
+.interview-scheduled {
+    background: #e4e8ff;
+    color: $interview-scheduled;
+}
+
+.interview-failed {
+    background: #ffebee;
+    color: $interview-failed;
+}
+
+.interview-pending {
+    background: #fff3e0;
+    color: $interview-pending;
+}
+
+.interview-cancelled {
+    background: #f5f5f5;
+    color: $interview-cancelled;
+}
+
+.interview-result-notes {
+    margin-top: $spacing-sm;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    line-height: 1.5;
+}
+
+// Empty State
+.empty-state {
+    text-align: center;
+    padding: $spacing-xxl;
+    color: $text-secondary;
+
+    h3 {
+        margin-bottom: $spacing-md;
+        color: $text-primary;
+    }
+
+    p {
+        font-size: $font-size-sm;
+    }
+}
+
+// RTL Support for Components
+[dir="rtl"] {
+    .job-detail strong {
+        margin-left: $spacing-xs;
+        margin-right: 0;
+    }
+
+    .form-actions {
+        flex-direction: row-reverse;
+    }
+
+    .modal-header {
+        flex-direction: row-reverse;
+    }
+}

@@ -1,0 +1,527 @@
+// Utilities
+// This file contains forms, modals, charts, settings, and other utility styles
+@use 'variables' as *;
+@use 'sass:color';
+
+// Forms
+.form-group {
+    margin-bottom: $spacing-md;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    font-size: $font-size-sm;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: $spacing-sm;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+    transition: $transition-normal;
+    background: $bg-primary;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba($primary-blue, 0.1);
+    }
+    
+    &:disabled {
+        background: $bg-secondary;
+        color: $text-secondary;
+        cursor: not-allowed;
+    }
+    
+    &:disabled:focus {
+        border-color: $border-light;
+        box-shadow: none;
+    }
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group input[type="url"] {
+    font-family: monospace;
+}
+
+.form-group label[for*="company-name"]::after,
+.form-group label[for*="position-title"]::after {
+    content: " *";
+    color: $status-rejected;
+}
+
+#interview-results-container {
+    background: $bg-secondary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    padding: $spacing-md;
+    margin-top: $spacing-sm;
+}
+
+.interview-result-item {
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+    position: relative;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.remove-interview-btn {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    background: $status-rejected;
+    color: $text-light;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: $font-size-xs;
+    transition: $transition-normal;
+    
+    &:hover {
+        background: color.adjust($status-rejected, $lightness: -10%);
+        transform: scale(1.1);
+    }
+}
+
+#add-interview-btn {
+    margin-top: $spacing-sm;
+    background: $bg-secondary;
+    color: $text-primary;
+    border: 1px solid $border-light;
+    
+    &:hover {
+        background: $border-light;
+    }
+}
+
+.form-actions {
+    display: flex;
+    gap: $spacing-sm;
+    justify-content: flex-end;
+    padding-top: $spacing-md;
+    border-top: 1px solid $border-light;
+    margin-top: $spacing-lg;
+    margin-bottom: $spacing-md;
+    margin-left: $spacing-md;
+    margin-right: $spacing-md;
+}
+.form-actions .btn {
+    min-width: 100px;
+}
+
+// Modals
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba($black, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: $z-index-modal;
+    opacity: 0;
+    visibility: hidden;
+    transition: $transition-normal;
+    
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.modal-body{
+    padding: $spacing-md;
+}
+.modal-content {
+    background: $bg-primary;
+    border-radius: $border-radius-md;
+    box-shadow: 0 10px 30px $shadow-dark;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+    width: 30%;
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-content.small {
+    max-width: 500px;
+    width: 90vw;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-light;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: $font-size-xl;
+    cursor: pointer;
+    color: $text-secondary;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: $transition-normal;
+    
+    &:hover {
+        background: $bg-secondary;
+        color: $text-primary;
+    }
+}
+
+#job-form {
+    padding: $spacing-md;
+}
+
+// Settings
+.settings-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.settings-section h2 {
+    margin-bottom: $spacing-lg;
+    color: $text-primary;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+}
+
+.setting-group {
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+    transition: $transition-normal;
+    
+    &:hover {
+        box-shadow: 0 2px 8px $shadow-light;
+    }
+}
+
+.setting-group h3 {
+    margin-bottom: $spacing-md;
+    color: $primary-blue;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+}
+
+.setting-item {
+    margin-bottom: $spacing-md;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    font-size: $font-size-sm;
+}
+
+.setting-select {
+    width: 100%;
+    padding: $spacing-sm;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    background: $bg-primary;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: $transition-normal;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba($primary-blue, 0.1);
+    }
+}
+
+.setting-item .btn {
+    margin-right: $spacing-sm;
+    margin-bottom: $spacing-sm;
+}
+
+.setting-item p {
+    margin: $spacing-xs 0;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    line-height: 1.5;
+}
+
+// Charts and Reports
+.filters-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-md;
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    min-width: 200px;
+}
+
+.filter-group label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+}
+
+.filter-select {
+    padding: $spacing-sm;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-sm;
+    background: $bg-primary;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: $transition-normal;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba($primary-blue, 0.1);
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+}
+
+.stat-card {
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+    padding: $spacing-lg;
+    text-align: center;
+    transition: $transition-normal;
+    
+    &:hover {
+        box-shadow: 0 4px 12px $shadow-light;
+        transform: translateY(-2px);
+    }
+    
+    h3 {
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: $text-secondary;
+    }
+    
+    .stat-number {
+        font-size: $font-size-xxl;
+        font-weight: $font-weight-bold;
+        color: $primary-blue;
+    }
+}
+
+.chart-container {
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, $primary-blue, $primary-green, $primary-purple, $primary-orange);
+        border-radius: $border-radius-md $border-radius-md 0 0;
+    }
+    
+    h3 {
+        margin-bottom: $spacing-md;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $text-primary;
+        text-align: center;
+    }
+}
+
+#status-chart {
+    width: 100%;
+    height: 400px;
+    border-radius: $border-radius-sm;
+    transition: $transition-normal;
+    
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center;
+    margin-top: $spacing-lg;
+    padding: $spacing-md;
+    background: $bg-secondary;
+    border-radius: $border-radius-sm;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    transition: $transition-normal;
+    font-size: $font-size-sm;
+    
+    &:hover {
+        background: $bg-primary;
+        box-shadow: 0 2px 4px $shadow-light;
+    }
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid $white;
+    box-shadow: 0 1px 3px $shadow-light;
+}
+
+// Archive Styles
+#archive-tab .actions-bar {
+    margin-bottom: $spacing-lg;
+}
+
+#archive-tab .actions-left h2 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin: 0;
+}
+
+.archived-job-card {
+    background: $bg-secondary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    transition: $transition-normal;
+    cursor: pointer;
+    
+    &:hover {
+        box-shadow: 0 4px 12px $shadow-light;
+        transform: translateY(-2px);
+    }
+    
+    .job-title {
+        color: $text-secondary;
+    }
+    
+    .job-company {
+        color: $text-secondary;
+    }
+}
+
+// Loading and Animation States
+.chart-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    background: $bg-secondary;
+    border-radius: $border-radius-sm;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+}
+
+.theme-dark .chart-loading {
+    background: color.adjust($bg-dark, $lightness: 5%);
+    color: $text-light;
+}
+
+// Chart Animation
+.chart-container {
+    animation: chartFadeIn 0.5s ease-out;
+}
+
+@keyframes chartFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

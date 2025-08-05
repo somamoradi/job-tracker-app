@@ -1,0 +1,18 @@
+{
+  "name": "job-tracker-app",
+  "version": "1.0.0",
+  "description": "A mobile-friendly web application for tracking job applications with comprehensive management and reporting capabilities.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass assets/styles/sass/main.scss assets/styles/styles.css",
+    "sass:watch": "sass --watch assets/styles/sass/main.scss assets/styles/styles.css",
+    "sass:build": "sass --style=compressed assets/styles/sass/main.scss assets/styles/styles.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.89.2"
+  }
+}

@@ -1,0 +1,53 @@
+// Main Sass file for Job Application Tracker
+// This file imports all partials and contains base styles
+
+// Import partials
+@use 'variables' as *;
+@use 'base' as *;
+@use 'layout' as *;
+@use 'components' as *;
+@use 'themes' as *;
+@use 'responsive' as *;
+@use 'utilities' as *;
+
+// Reset and Base Styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+// RTL Language Font Support
+[dir="rtl"] {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+// Apply Vazirmatn font for Arabic, Persian, and Kurdish languages
+[lang="ar"], [lang="fa"], [lang="ku"] {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+// Ensure proper font rendering for RTL languages
+[dir="rtl"] *,
+[lang="ar"] *,
+[lang="fa"] *,
+[lang="ku"] * {
+    font-family: inherit;
+}
+
+// App Container
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+} 

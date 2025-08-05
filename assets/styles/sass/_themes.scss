@@ -1,0 +1,277 @@
+// Themes
+// This file contains all theme variations and dark mode styles
+@use 'variables' as *;
+@use 'sass:color';
+
+// Green Theme
+.theme-green {
+    .app-header {
+        background: linear-gradient(135deg, $primary-green, $primary-green-dark);
+    }
+    
+    .btn-primary {
+        background: $primary-green;
+        
+        &:hover:not(:disabled) {
+            background: $primary-green-dark;
+        }
+    }
+    
+    .job-title {
+        color: $primary-green;
+    }
+    
+    .stat-number {
+        color: $primary-green;
+    }
+    
+    .setting-group h3 {
+        color: $primary-green;
+    }
+}
+
+// Purple Theme
+.theme-purple {
+    .app-header {
+        background: linear-gradient(135deg, $primary-purple, $primary-purple-dark);
+    }
+    
+    .btn-primary {
+        background: $primary-purple;
+        
+        &:hover:not(:disabled) {
+            background: $primary-purple-dark;
+        }
+    }
+    
+    .job-title {
+        color: $primary-purple;
+    }
+    
+    .stat-number {
+        color: $primary-purple;
+    }
+    
+    .setting-group h3 {
+        color: $primary-purple;
+    }
+}
+
+// Orange Theme
+.theme-orange {
+    .app-header {
+        background: linear-gradient(135deg, $primary-orange, $primary-orange-dark);
+    }
+    
+    .btn-primary {
+        background: $primary-orange;
+        
+        &:hover:not(:disabled) {
+            background: $primary-orange-dark;
+        }
+    }
+    
+    .job-title {
+        color: $primary-orange;
+    }
+    
+    .stat-number {
+        color: $primary-orange;
+    }
+    
+    .setting-group h3 {
+        color: $primary-orange;
+    }
+}
+
+// Dark Theme
+.theme-dark {
+    background-color: $bg-dark;
+    color: $text-light;
+    
+    .app-container {
+        background: $bg-dark;
+        color: $text-light;
+    }
+    
+    .app-header {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+    }
+    
+    .job-card {
+        background: color.adjust($bg-dark, $lightness: 5%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+        color: $text-light;
+        
+        &:hover {
+            box-shadow: 0 4px 12px rgba($black, 0.3);
+        }
+    }
+    
+    .stat-card {
+        background: color.adjust($bg-dark, $lightness: 5%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .setting-group {
+        background: color.adjust($bg-dark, $lightness: 5%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .modal-content {
+        background: color.adjust($bg-dark, $lightness: 5%);
+        color: $text-light;
+    }
+    
+    .modal-header {
+        border-bottom-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .modal-header h2 {
+        color: $text-light;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        background: color.adjust($bg-dark, $lightness: 10%);
+        border-color: color.adjust($bg-dark, $lightness: 20%);
+        color: $text-light;
+        
+        &:focus {
+            border-color: $primary-blue;
+            box-shadow: 0 0 0 3px rgba($primary-blue, 0.2);
+        }
+        
+        &:disabled {
+            background: color.adjust($bg-dark, $lightness: 5%);
+            color: $text-secondary;
+        }
+        
+        &:disabled:focus {
+            border-color: color.adjust($bg-dark, $lightness: 20%);
+            box-shadow: none;
+        }
+    }
+    
+    #interview-results-container {
+        background: color.adjust($bg-dark, $lightness: 3%);
+    }
+    
+    .interview-result-item {
+        background: color.adjust($bg-dark, $lightness: 8%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .form-actions {
+        border-top-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .btn-secondary {
+        background: color.adjust($bg-dark, $lightness: 10%);
+        color: $text-light;
+        border-color: color.adjust($bg-dark, $lightness: 20%);
+        
+        &:hover:not(:disabled) {
+            background: color.adjust($bg-dark, $lightness: 15%);
+        }
+    }
+    
+    .job-detail strong {
+        color: color.adjust($text-secondary, $lightness: 20%);
+    }
+    
+    .job-notes {
+        color: color.adjust($text-secondary, $lightness: 20%);
+        
+        strong {
+            color: $text-light;
+        }
+        
+        p {
+            color: color.adjust($text-secondary, $lightness: 20%);
+        }
+    }
+    
+    .interview-results-preview {
+        border-top-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .interview-preview-header {
+        background: color.adjust($bg-dark, $lightness: 8%);
+        
+        &:hover {
+            background: color.adjust($bg-dark, $lightness: 12%);
+        }
+        
+        &.expanded {
+            background: $primary-blue;
+        }
+    }
+    
+    .interview-results-details {
+        background: color.adjust($bg-dark, $lightness: 8%);
+    }
+    
+    .interview-result-item {
+        background: color.adjust($bg-dark, $lightness: 10%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .interview-preview-title {
+        color: $text-light;
+    }
+    
+    .interview-count {
+        background: rgba($white, 0.1);
+        color: $text-light;
+    }
+    
+    .expand-icon {
+        color: $text-light;
+    }
+    
+    // Chart styles for dark theme
+    .chart-container {
+        background: color.adjust($bg-dark, $lightness: 5%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+    }
+    
+    .chart-container h3 {
+        color: $text-light;
+    }
+    
+    .chart-legend {
+        background: color.adjust($bg-dark, $lightness: 3%);
+    }
+    
+    .legend-item {
+        color: $text-light;
+        
+        &:hover {
+            background: color.adjust($bg-dark, $lightness: 8%);
+        }
+    }
+    
+    // Archive specific dark theme styles
+    #archive-tab .actions-left h2 {
+        color: $text-light;
+    }
+    
+    .archived-job-card {
+        background: color.adjust($bg-dark, $lightness: 5%);
+        border-color: color.adjust($bg-dark, $lightness: 15%);
+        
+        &:hover {
+            box-shadow: 0 4px 12px rgba($black, 0.3);
+        }
+        
+        .job-title {
+            color: $primary-blue;
+        }
+        
+        .job-company {
+            color: color.adjust($text-secondary, $lightness: 20%);
+        }
+    }
+} 
