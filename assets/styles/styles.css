@@ -761,6 +761,7 @@ input, textarea, select, button {
 .job-notes p {
   margin-bottom: 0.25rem;
   line-height: 1.5;
+   overflow: hidden;
 }
 
 .interview-results-preview {
