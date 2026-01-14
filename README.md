@@ -53,7 +53,7 @@ A **mobile-first, privacy-focused** web application for tracking job application
 ### **Option 2: Local Development**
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/job-tracker-app.git
+   git clone https://github.com/somamoradi/job-tracker-app.git
    cd job-tracker-app
    ```
 2. Open `index.html` in your web browser
@@ -260,3 +260,4 @@ If you have questions, suggestions, or need help:
 
 
 *"The best way to predict the future is to create it." - Peter Drucker* 
+
