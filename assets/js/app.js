@@ -50,34 +50,79 @@ class JobTracker {
         const stored = localStorage.getItem('jobTracker_jobs');
         this.jobs = stored ? JSON.parse(stored) : [];
 
-        if (typeof chrome !== 'undefined' && chrome.storage) {
+        // ── Sync depuis l'extension Chrome ──────────────────────────────
+        // Si l'extension a ajouté des jobs via chrome.storage.local,
+        // on les importe dans l'app et on évite les doublons par id.
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
             chrome.storage.local.get(['jobTracker_jobs'], (result) => {
-                const extJobs = JSON.parse(result['jobTracker_jobs'] || '[]');
-                const extOnly = extJobs.filter(ej => !this.jobs.find(j => j.id === ej.id));
-                if (extOnly.length > 0) {
-                    this.jobs = [...this.jobs, ...extOnly];
-                    this.saveJobs();
-                    this.renderJobs();
+                if (chrome.runtime.lastError || !result['jobTracker_jobs']) return;
+                try {
+                    const extJobs = JSON.parse(result['jobTracker_jobs'] || '[]');
+                    const newJobs = extJobs.filter(ej => !this.jobs.find(j => j.id === ej.id));
+                    if (newJobs.length > 0) {
+                        this.jobs = [...this.jobs, ...newJobs];
+                        localStorage.setItem('jobTracker_jobs', JSON.stringify(this.jobs));
+                        this.renderJobs();
+                        this.updateReports();
+                    }
+                } catch (e) {
+                    console.warn('[JobTracker] Erreur sync extension:', e);
                 }
             });
         }
+        // ────────────────────────────────────────────────────────────────
     }
 
     saveJobs() {
         localStorage.setItem('jobTracker_jobs', JSON.stringify(this.jobs));
 
-        if (typeof chrome !== 'undefined' && chrome.storage) {
-            chrome.storage.local.set({ 'jobTracker_jobs': JSON.stringify(this.jobs) });
+        // ── Sync vers l'extension Chrome ────────────────────────────────
+        // On maintient chrome.storage.local à jour pour que l'extension
+        // puisse détecter les offres déjà postulées sur les sites d'emploi.
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+            chrome.storage.local.set(
+                { 'jobTracker_jobs': JSON.stringify(this.jobs) },
+                () => { if (chrome.runtime.lastError) console.warn('[JobTracker] Erreur sync extension:', chrome.runtime.lastError); }
+            );
         }
+        // ────────────────────────────────────────────────────────────────
     }
 
     loadArchivedJobs() {
         const stored = localStorage.getItem('jobTracker_archived_jobs');
         this.archivedJobs = stored ? JSON.parse(stored) : [];
+
+        // ── Sync archives depuis l'extension Chrome ─────────────────────
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+            chrome.storage.local.get(['jobTracker_archived_jobs'], (result) => {
+                if (chrome.runtime.lastError || !result['jobTracker_archived_jobs']) return;
+                try {
+                    const extArchived = JSON.parse(result['jobTracker_archived_jobs'] || '[]');
+                    const newArchived = extArchived.filter(ej => !this.archivedJobs.find(j => j.id === ej.id));
+                    if (newArchived.length > 0) {
+                        this.archivedJobs = [...this.archivedJobs, ...newArchived];
+                        localStorage.setItem('jobTracker_archived_jobs', JSON.stringify(this.archivedJobs));
+                        this.renderArchivedJobs();
+                    }
+                } catch (e) {
+                    console.warn('[JobTracker] Erreur sync extension (archives):', e);
+                }
+            });
+        }
+        // ────────────────────────────────────────────────────────────────
     }
 
     saveArchivedJobs() {
         localStorage.setItem('jobTracker_archived_jobs', JSON.stringify(this.archivedJobs));
+
+        // ── Sync archives vers l'extension Chrome ───────────────────────
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+            chrome.storage.local.set(
+                { 'jobTracker_archived_jobs': JSON.stringify(this.archivedJobs) },
+                () => { if (chrome.runtime.lastError) console.warn('[JobTracker] Erreur sync extension (archives):', chrome.runtime.lastError); }
+            );
+        }
+        // ────────────────────────────────────────────────────────────────
     }
 
     // Event Listeners Setup
