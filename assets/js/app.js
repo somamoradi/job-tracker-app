@@ -49,10 +49,26 @@ class JobTracker {
     loadJobs() {
         const stored = localStorage.getItem('jobTracker_jobs');
         this.jobs = stored ? JSON.parse(stored) : [];
+
+        if (typeof chrome !== 'undefined' && chrome.storage) {
+            chrome.storage.local.get(['jobTracker_jobs'], (result) => {
+                const extJobs = JSON.parse(result['jobTracker_jobs'] || '[]');
+                const extOnly = extJobs.filter(ej => !this.jobs.find(j => j.id === ej.id));
+                if (extOnly.length > 0) {
+                    this.jobs = [...this.jobs, ...extOnly];
+                    this.saveJobs();
+                    this.renderJobs();
+                }
+            });
+        }
     }
 
     saveJobs() {
         localStorage.setItem('jobTracker_jobs', JSON.stringify(this.jobs));
+
+        if (typeof chrome !== 'undefined' && chrome.storage) {
+            chrome.storage.local.set({ 'jobTracker_jobs': JSON.stringify(this.jobs) });
+        }
     }
 
     loadArchivedJobs() {
