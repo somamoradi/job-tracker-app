@@ -3,7 +3,7 @@ import translations from '../../languages/index.js';
 
 // Job Application Tracker - Main Application
 class JobTracker {
-    constructor() {
+    constructor() { 
         this.jobs = [];
         this.archivedJobs = [];
         this.currentJobId = null;

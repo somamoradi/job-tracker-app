@@ -6,7 +6,7 @@ export default {
   search_jobs: "جستجو در مشاغل...",
   archived_jobs: "مشاغل بایگانی شده",
   search_archived_jobs: "جستجو در مشاغل بایگانی شده...",
-
+ 
   // Tab navigation
   tab_jobs: "مشاغل",
   tab_archive: "بایگانی",

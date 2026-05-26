@@ -24,7 +24,7 @@ export default {
     sort_status: 'Stato',
     sort_company: 'Nome Azienda',
     sort_position: 'Titolo Posizione',
-    
+     
     // Reports
     chart_title: 'Distribuzione Stato Candidature Lavoro',
     status_to_apply: 'Da Candidare',

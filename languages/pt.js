@@ -12,7 +12,7 @@ export default  {
     tab_archive: 'Arquivo',
     tab_reports: 'Relatórios',
     tab_settings: 'Configurações',
-    
+     
     // Sort options
     sort_by: 'Ordenar por:',
     sort_date_applied_desc: 'Data de Candidatura (Mais Recente)',

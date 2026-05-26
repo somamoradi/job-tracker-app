@@ -12,7 +12,7 @@ export default {
     tab_archive: 'アーカイブ',
     tab_reports: 'レポート',
     tab_settings: '設定',
-    
+     
     // Sort options
     sort_by: '並び替え:',
     sort_date_applied_desc: '応募日 (最新)',

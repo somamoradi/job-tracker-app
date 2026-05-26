@@ -8,7 +8,7 @@ export default {
     search_archived_jobs: 'Search archived jobs...',
     
     // Tab navigation
-    tab_jobs: 'Jobs',
+    tab_jobs: 'Jobs', 
     tab_archive: 'Archive',
     tab_reports: 'Reports',
     tab_settings: 'Settings',

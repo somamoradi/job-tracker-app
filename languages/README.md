@@ -14,7 +14,7 @@ This directory contains all the language files for the Job Application Tracker a
 - **Chinese (zh.js)** - 中文
 - **Japanese (ja.js)** - 日本語
 - **Korean (ko.js)** - 한국어
-
+ 
 ## File Structure
 
 Each language file contains:

@@ -12,7 +12,7 @@ export default {
   tab_archive: "归档",
   tab_reports: "报告",
   tab_settings: "设置",
-
+ 
   // Sort options
   sort_by: "排序方式:",
   sort_date_applied_desc: "申请日期 (最新)",

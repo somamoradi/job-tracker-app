@@ -34,4 +34,4 @@ export const languages = {
 export { en, es, fr, de, it, pt, ar, zh, ja, ko, fa, ku };
 
 // Export default as translations object
-export default languages; 
+export default languages;  

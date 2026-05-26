@@ -3,7 +3,7 @@
 This directory contains all static assets for the Job Application Tracker.
 
 ## Directory Structure
-
+ 
 ```
 assets/
 ├── js/                    # JavaScript files

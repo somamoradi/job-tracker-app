@@ -1,5 +1,5 @@
 // German Language File
-export default {
+export default { 
   // Main app
   app_title: "Job-Tracker",
   add_job: "Job hinzufügen",
