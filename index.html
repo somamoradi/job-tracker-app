@@ -7,12 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/styles.css">
     <link rel="manifest" href="assets/manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/app-icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/app-icon.png">
-    <meta name="theme-color" content="#2196F3">
+    <meta name="theme-color" content="#58CC02">
 </head>
 <body>
     <div class="app-container">
@@ -23,6 +24,10 @@
                 <button class="nav-tab active" data-tab="jobs">
                     <span class="tab-icon">💼</span>
                     <span class="tab-text" id="tab-jobs">Jobs</span>
+                </button>
+                <button class="nav-tab" data-tab="resumes">
+                    <span class="tab-icon">📄</span>
+                    <span class="tab-text" id="tab-resumes">Resumes</span>
                 </button>
                 <button class="nav-tab" data-tab="archive">
                     <span class="tab-icon">📦</span>
@@ -36,7 +41,7 @@
                     <span class="tab-icon">⚙️</span>
                     <span class="tab-text" id="tab-settings">Settings</span>
                 </button>
-            </nav> 
+            </nav>
         </header>
 
         <!-- Jobs Tab Content -->
@@ -83,6 +88,25 @@
 
             <div class="jobs-list" id="jobs-list">
                 <!-- Jobs will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Resumes Tab Content -->
+        <div id="resumes-tab" class="tab-content">
+            <div class="actions-bar">
+                <div class="actions-left">
+                    <button id="add-resume-btn" class="btn btn-primary">
+                        <span class="icon">+</span> <span id="add-resume-text">Add Resume</span>
+                    </button>
+                </div>
+                <div class="actions-center">
+                    <h2 id="resumes-title">My Resumes</h2>
+                </div>
+                <div class="actions-right"></div>
+            </div>
+
+            <div class="resumes-list" id="resumes-list">
+                <!-- Resumes will be dynamically loaded here -->
             </div>
         </div>
 
@@ -381,6 +405,45 @@
                     <input type="url" id="job-url" placeholder="https://...">
                 </div>
 
+                <!-- Application Details Section -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="application-site" id="application-site-label">Application Site</label>
+                        <input type="text" id="application-site" placeholder="e.g., LinkedIn, Indeed, Company website">
+                    </div>
+                    <div class="form-group">
+                        <label for="followup-days" id="followup-days-label">Follow-up Reminder</label>
+                        <select id="followup-days">
+                            <option value="" id="followup-none">No reminder</option>
+                            <option value="3" id="followup-3">3 days after applying</option>
+                            <option value="5" id="followup-5">5 days after applying</option>
+                            <option value="7" id="followup-7">7 days after applying</option>
+                            <option value="10" id="followup-10">10 days after applying</option>
+                            <option value="14" id="followup-14">14 days after applying</option>
+                            <option value="21" id="followup-21">21 days after applying</option>
+                            <option value="30" id="followup-30">30 days after applying</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resume-attached" id="resume-attached-label">Resume Version Sent</label>
+                    <select id="resume-attached">
+                        <option value="" id="resume-none-option">No resume attached</option>
+                        <!-- Resume options loaded dynamically -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="job-description" id="job-description-label">Job Description</label>
+                    <textarea id="job-description" rows="4" placeholder="Paste the text of the job posting / requirements..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="cover-letter" id="cover-letter-label">Cover Letter</label>
+                    <textarea id="cover-letter" rows="4" placeholder="Cover letter / motivation letter text..."></textarea>
+                </div>
+
                 <!-- Interview Results Section -->
                 <div class="form-group">
                     <label id="interview-results-label">Interview Results & Tests</label>
@@ -473,7 +536,56 @@
         </div>
     </div>
 
+    <!-- Add/Edit Resume Modal -->
+    <div id="resume-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="resume-modal-title">Add Resume</h2>
+                <button class="close-btn" id="close-resume-modal">&times;</button>
+            </div>
+            <form id="resume-form">
+                <div class="form-group">
+                    <label for="resume-name" id="resume-name-label">Resume Name *</label>
+                    <input type="text" id="resume-name" placeholder="e.g., Frontend Developer Resume" required>
+                </div>
+                <div class="form-group">
+                    <label for="resume-version" id="resume-version-label">Version</label>
+                    <input type="text" id="resume-version" placeholder="e.g., v1, v2, English, Tailored for startups">
+                </div>
+                <div class="form-group">
+                    <label for="resume-file" id="resume-file-label">Resume File (optional)</label>
+                    <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt,.rtf,.odt">
+                    <div id="resume-file-current" class="resume-file-current" style="display:none;"></div>
+                </div>
+                <div class="form-group">
+                    <label for="resume-notes" id="resume-notes-label">Notes</label>
+                    <textarea id="resume-notes" rows="3" placeholder="Notes about this resume version..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancel-resume-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-resume-btn">Save Resume</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Resume Confirmation Modal -->
+    <div id="resume-delete-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h2 id="resume-delete-title">Delete Resume</h2>
+                <button class="close-btn" id="close-resume-delete-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="resume-delete-confirmation">Are you sure you want to delete this resume? This action cannot be undone.</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="cancel-resume-delete" class="btn btn-secondary">Cancel</button>
+                <button type="button" id="confirm-resume-delete" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/js/icon-utils.js"></script>
-    <script type="module" src="assets/js/app.js"></script>
-</body>
+    <script type="module" src="assets/js/app.js"></script></body>
 </html> 

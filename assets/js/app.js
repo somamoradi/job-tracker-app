@@ -3,10 +3,12 @@ import translations from '../../languages/index.js';
 
 // Job Application Tracker - Main Application
 class JobTracker {
-    constructor() { 
+    constructor() {
         this.jobs = [];
         this.archivedJobs = [];
+        this.resumes = [];
         this.currentJobId = null;
+        this.currentResumeId = null;
         this.settings = this.loadSettings();
         this.translations = this.getTranslations();
         this.currentLanguage = this.settings.language || 'en';
@@ -20,6 +22,7 @@ class JobTracker {
     init() {
         this.loadJobs();
         this.loadArchivedJobs();
+        this.loadResumes();
         this.setupEventListeners();
         this.applyTheme();
         this.applyViewStyle();
@@ -27,7 +30,9 @@ class JobTracker {
         this.translateUI();
         this.renderJobs();
         this.renderArchivedJobs();
+        this.renderResumes();
         this.updateReports();
+        this.checkFollowupReminders();
     }
 
     // Settings Management
@@ -64,6 +69,15 @@ class JobTracker {
         localStorage.setItem('jobTracker_archived_jobs', JSON.stringify(this.archivedJobs));
     }
 
+    loadResumes() {
+        const stored = localStorage.getItem('jobTracker_resumes');
+        this.resumes = stored ? JSON.parse(stored) : [];
+    }
+
+    saveResumes() {
+        localStorage.setItem('jobTracker_resumes', JSON.stringify(this.resumes));
+    }
+
     // Event Listeners Setup
     setupEventListeners() {
         // Tab Navigation
@@ -73,6 +87,28 @@ class JobTracker {
 
         // Add Job Button
         document.getElementById('add-job-btn').addEventListener('click', () => this.openJobModal());
+
+        // Resume management
+        const addResumeBtn = document.getElementById('add-resume-btn');
+        if (addResumeBtn) addResumeBtn.addEventListener('click', () => this.openResumeModal());
+
+        const resumeForm = document.getElementById('resume-form');
+        if (resumeForm) resumeForm.addEventListener('submit', (e) => this.saveResume(e));
+
+        const closeResumeModal = document.getElementById('close-resume-modal');
+        if (closeResumeModal) closeResumeModal.addEventListener('click', () => this.closeResumeModal());
+
+        const cancelResumeBtn = document.getElementById('cancel-resume-btn');
+        if (cancelResumeBtn) cancelResumeBtn.addEventListener('click', () => this.closeResumeModal());
+
+        const closeResumeDeleteModal = document.getElementById('close-resume-delete-modal');
+        if (closeResumeDeleteModal) closeResumeDeleteModal.addEventListener('click', () => this.closeResumeDeleteModal());
+
+        const cancelResumeDelete = document.getElementById('cancel-resume-delete');
+        if (cancelResumeDelete) cancelResumeDelete.addEventListener('click', () => this.closeResumeDeleteModal());
+
+        const confirmResumeDelete = document.getElementById('confirm-resume-delete');
+        if (confirmResumeDelete) confirmResumeDelete.addEventListener('click', () => this.deleteResume());
 
         // Search
         document.getElementById('search-jobs').addEventListener('input', (e) => this.filterJobs(e.target.value));
@@ -176,6 +212,8 @@ class JobTracker {
                 this.closeJobModal();
                 this.closeDeleteModal();
                 this.closeClearModal();
+                this.closeResumeModal();
+                this.closeResumeDeleteModal();
             }
         });
     }
@@ -194,6 +232,8 @@ class JobTracker {
             this.updateReports();
         } else if (tabName === 'archive') {
             this.renderArchivedJobs();
+        } else if (tabName === 'resumes') {
+            this.renderResumes();
         }
     }
 
@@ -386,14 +426,45 @@ class JobTracker {
             // Main app elements
             'app-title': 'app_title',
             'add-job-text': 'add_job',
-            'add-job-btn': 'add_job',
             'search-jobs': 'search_jobs',
             
             // Tab navigation
             'tab-jobs': 'tab_jobs',
+            'tab-resumes': 'tab_resumes',
             'tab-archive': 'tab_archive',
             'tab-reports': 'tab_reports',
             'tab-settings': 'tab_settings',
+
+            // Resumes tab
+            'add-resume-text': 'add_resume',
+            'resumes-title': 'my_resumes',
+            'resume-modal-title': 'add_resume_title',
+            'resume-name-label': 'resume_name_label',
+            'resume-version-label': 'resume_version_form_label',
+            'resume-file-label': 'resume_file_label',
+            'resume-notes-label': 'resume_notes_label',
+            'save-resume-btn': 'save_resume',
+            'cancel-resume-btn': 'cancel',
+            'resume-delete-title': 'delete_resume_title',
+            'resume-delete-confirmation': 'resume_delete_confirmation',
+            'confirm-resume-delete': 'confirm_delete',
+            'cancel-resume-delete': 'cancel',
+
+            // New job form fields
+            'application-site-label': 'application_site',
+            'followup-days-label': 'followup_days_label',
+            'followup-none': 'followup_none',
+            'followup-3': 'followup_3',
+            'followup-5': 'followup_5',
+            'followup-7': 'followup_7',
+            'followup-10': 'followup_10',
+            'followup-14': 'followup_14',
+            'followup-21': 'followup_21',
+            'followup-30': 'followup_30',
+            'resume-attached-label': 'resume_attached_label',
+            'resume-none-option': 'resume_none_option',
+            'job-description-label': 'job_description',
+            'cover-letter-label': 'cover_letter',
             
             // Sort options
             'sort-label': 'sort_by',
@@ -627,7 +698,13 @@ class JobTracker {
             'contract-duration': 'contract_duration_placeholder',
             'salary-amount': 'salary_amount_placeholder',
             'notes': 'notes_placeholder',
-            'interview-notes-1': 'interview_notes_placeholder'
+            'interview-notes-1': 'interview_notes_placeholder',
+            'application-site': 'application_site_placeholder',
+            'job-description': 'job_description_placeholder',
+            'cover-letter': 'cover_letter_placeholder',
+            'resume-name': 'resume_name_placeholder',
+            'resume-version': 'resume_version_placeholder',
+            'resume-notes': 'resume_notes_placeholder'
         };
 
         Object.keys(placeholderElements).forEach(id => {
@@ -756,6 +833,9 @@ class JobTracker {
 
         if (!modal || !title || !form) return; // Exit if required elements don't exist
 
+        // Populate resume dropdown with the current list of resumes
+        this.populateResumeDropdown();
+
         if (jobId) {
             const job = this.jobs.find(j => j.id === jobId);
             if (job) {
@@ -852,6 +932,13 @@ class JobTracker {
         setFieldValue('salary-period', job.salaryPeriod);
         setFieldValue('notes', job.notes);
 
+        // New application detail fields
+        setFieldValue('application-site', job.applicationSite);
+        setFieldValue('followup-days', job.followupDays);
+        setFieldValue('resume-attached', job.resumeId);
+        setFieldValue('job-description', job.jobDescription);
+        setFieldValue('cover-letter', job.coverLetter);
+
         // Handle contract duration field based on contract type
         this.handleContractTypeChange(job.contractType || '');
 
@@ -947,6 +1034,9 @@ class JobTracker {
             }
         });
 
+        const resumeId = document.getElementById('resume-attached')?.value || '';
+        const attachedResume = this.resumes.find(r => r.id === resumeId);
+
         const jobData = {
             companyName: document.getElementById('company-name').value,
             positionTitle: document.getElementById('position-title').value,
@@ -960,6 +1050,12 @@ class JobTracker {
             salaryPeriod: document.getElementById('salary-period').value,
             contactPerson: document.getElementById('contact-person').value,
             jobUrl: document.getElementById('job-url').value,
+            applicationSite: document.getElementById('application-site')?.value || '',
+            jobDescription: document.getElementById('job-description')?.value || '',
+            coverLetter: document.getElementById('cover-letter')?.value || '',
+            followupDays: document.getElementById('followup-days')?.value || '',
+            resumeId: resumeId,
+            resumeName: attachedResume ? this.getResumeLabel(attachedResume) : '',
             notes: document.getElementById('notes').value,
             interviewResults: interviewResults
         };
@@ -1033,11 +1129,300 @@ class JobTracker {
         this.currentJobId = null;
     }
 
+    // ============================================================
+    // Resume Management
+    // ============================================================
+    getResumeLabel(resume) {
+        if (!resume) return '';
+        return resume.version ? `${resume.name} (${resume.version})` : resume.name;
+    }
+
+    populateResumeDropdown() {
+        const select = document.getElementById('resume-attached');
+        if (!select) return;
+
+        const currentValue = select.value;
+        const noneText = this.translations[this.currentLanguage]?.resume_none_option || 'No resume attached';
+
+        let optionsHtml = `<option value="">${noneText}</option>`;
+        this.resumes.forEach(resume => {
+            optionsHtml += `<option value="${resume.id}">${this.escapeHtml(this.getResumeLabel(resume))}</option>`;
+        });
+        select.innerHTML = optionsHtml;
+
+        // Restore previous selection if it still exists
+        if (currentValue && this.resumes.some(r => r.id === currentValue)) {
+            select.value = currentValue;
+        }
+    }
+
+    openResumeModal(resumeId = null) {
+        this.currentResumeId = resumeId;
+        const modal = document.getElementById('resume-modal');
+        const title = document.getElementById('resume-modal-title');
+        const form = document.getElementById('resume-form');
+        const fileCurrent = document.getElementById('resume-file-current');
+        if (!modal || !form) return;
+
+        form.reset();
+        this.pendingResumeFile = null; // holds newly selected file data
+        if (fileCurrent) fileCurrent.style.display = 'none';
+
+        if (resumeId) {
+            const resume = this.resumes.find(r => r.id === resumeId);
+            if (resume) {
+                if (title) title.textContent = this.translations[this.currentLanguage]?.edit_resume || 'Edit Resume';
+                document.getElementById('resume-name').value = resume.name || '';
+                document.getElementById('resume-version').value = resume.version || '';
+                document.getElementById('resume-notes').value = resume.notes || '';
+                if (resume.fileName && fileCurrent) {
+                    const currentLabel = this.translations[this.currentLanguage]?.current_file || 'Current file';
+                    fileCurrent.textContent = `${currentLabel}: ${resume.fileName}`;
+                    fileCurrent.style.display = 'block';
+                }
+            }
+        } else {
+            if (title) title.textContent = this.translations[this.currentLanguage]?.add_resume_title || 'Add Resume';
+        }
+
+        modal.classList.add('active');
+    }
+
+    closeResumeModal() {
+        const modal = document.getElementById('resume-modal');
+        if (modal) modal.classList.remove('active');
+        this.currentResumeId = null;
+        this.pendingResumeFile = null;
+    }
+
+    readResumeFile() {
+        return new Promise((resolve) => {
+            const fileInput = document.getElementById('resume-file');
+            const file = fileInput?.files?.[0];
+            if (!file) {
+                resolve(null);
+                return;
+            }
+            // Soft limit: 3MB to stay within localStorage limits
+            const maxBytes = 3 * 1024 * 1024;
+            if (file.size > maxBytes) {
+                this.showNotification(
+                    this.translations[this.currentLanguage]?.file_too_large || 'File is too large (max 3MB).',
+                    true
+                );
+                resolve(undefined); // signal an error
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => resolve({ fileName: file.name, fileData: e.target.result });
+            reader.onerror = () => resolve(undefined);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    async saveResume(e) {
+        e.preventDefault();
+        const modal = document.getElementById('resume-modal');
+        if (!modal || !modal.classList.contains('active')) return;
+
+        const name = document.getElementById('resume-name').value.trim();
+        if (!name) return;
+        const version = document.getElementById('resume-version').value.trim();
+        const notes = document.getElementById('resume-notes').value.trim();
+
+        const fileResult = await this.readResumeFile();
+        if (fileResult === undefined) return; // error already shown (too large / read error)
+
+        if (this.currentResumeId) {
+            const index = this.resumes.findIndex(r => r.id === this.currentResumeId);
+            if (index !== -1) {
+                const existing = this.resumes[index];
+                this.resumes[index] = {
+                    ...existing,
+                    name,
+                    version,
+                    notes,
+                    // keep existing file unless a new one was uploaded
+                    fileName: fileResult ? fileResult.fileName : existing.fileName,
+                    fileData: fileResult ? fileResult.fileData : existing.fileData,
+                    updatedAt: new Date().toISOString()
+                };
+            }
+        } else {
+            this.resumes.push({
+                id: this.generateId(),
+                name,
+                version,
+                notes,
+                fileName: fileResult ? fileResult.fileName : null,
+                fileData: fileResult ? fileResult.fileData : null,
+                createdAt: new Date().toISOString()
+            });
+        }
+
+        this.saveResumes();
+        this.renderResumes();
+        this.closeResumeModal();
+        this.showNotification(this.translations[this.currentLanguage]?.resume_saved || 'Resume saved successfully!');
+    }
+
+    openResumeDeleteModal(resumeId) {
+        this.currentResumeId = resumeId;
+        const modal = document.getElementById('resume-delete-modal');
+        if (modal) modal.classList.add('active');
+    }
+
+    closeResumeDeleteModal() {
+        const modal = document.getElementById('resume-delete-modal');
+        if (modal) modal.classList.remove('active');
+        this.currentResumeId = null;
+    }
+
+    deleteResume() {
+        if (!this.currentResumeId) return;
+        this.resumes = this.resumes.filter(r => r.id !== this.currentResumeId);
+        this.saveResumes();
+        this.renderResumes();
+        this.closeResumeDeleteModal();
+        this.showNotification(this.translations[this.currentLanguage]?.resume_deleted || 'Resume deleted successfully!');
+    }
+
+    downloadResume(resumeId) {
+        const resume = this.resumes.find(r => r.id === resumeId);
+        if (!resume || !resume.fileData) return;
+        const a = document.createElement('a');
+        a.href = resume.fileData;
+        a.download = resume.fileName || 'resume';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    renderResumes() {
+        const list = document.getElementById('resumes-list');
+        if (!list) return;
+
+        if (this.resumes.length === 0) {
+            const emptyTitle = this.translations[this.currentLanguage]?.no_resumes_yet || 'No resumes yet';
+            const emptyText = this.translations[this.currentLanguage]?.add_first_resume || 'Add your first resume to attach it to job applications.';
+            const btnText = this.translations[this.currentLanguage]?.add_resume || 'Add Resume';
+            list.innerHTML = `
+                <div class="empty-state">
+                    <h3>${emptyTitle}</h3>
+                    <p>${emptyText}</p>
+                    <button class="btn btn-primary" onclick="jobTracker.openResumeModal()">${btnText}</button>
+                </div>
+            `;
+            return;
+        }
+
+        const editText = this.translations[this.currentLanguage]?.edit || 'Edit';
+        const deleteText = this.translations[this.currentLanguage]?.delete || 'Delete';
+        const downloadText = this.translations[this.currentLanguage]?.download || 'Download';
+        const versionLabel = this.translations[this.currentLanguage]?.resume_version_label || 'Version';
+        const usedInLabel = this.translations[this.currentLanguage]?.used_in_applications || 'Used in applications';
+
+        list.innerHTML = this.resumes.map(resume => {
+            const usedCount = this.jobs.filter(j => j.resumeId === resume.id).length +
+                this.archivedJobs.filter(j => j.resumeId === resume.id).length;
+            return `
+                <div class="resume-card" data-resume-id="${resume.id}">
+                    <div class="resume-card-header">
+                        <div class="resume-card-title">
+                            <span class="resume-icon">📄</span>
+                            <span>${this.escapeHtml(resume.name)}</span>
+                        </div>
+                        <div class="resume-card-actions">
+                            <button class="btn btn-small btn-secondary" onclick="jobTracker.openResumeModal('${resume.id}')">${editText}</button>
+                            ${resume.fileData ? `<button class="btn btn-small btn-info" onclick="jobTracker.downloadResume('${resume.id}')">${downloadText}</button>` : ''}
+                            <button class="btn btn-small btn-danger" onclick="jobTracker.openResumeDeleteModal('${resume.id}')">${deleteText}</button>
+                        </div>
+                    </div>
+                    <div class="resume-card-body">
+                        ${resume.version ? `<div class="resume-detail"><strong>${versionLabel}:</strong> <span>${this.escapeHtml(resume.version)}</span></div>` : ''}
+                        ${resume.fileName ? `<div class="resume-detail"><strong>📎</strong> <span>${this.escapeHtml(resume.fileName)}</span></div>` : ''}
+                        <div class="resume-detail"><strong>${usedInLabel}:</strong> <span>${usedCount}</span></div>
+                        ${resume.notes ? `<div class="resume-notes">${this.escapeHtml(resume.notes)}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ============================================================
+    // Follow-up Reminders
+    // ============================================================
+    getFollowupInfo(job) {
+        if (!job.followupDays || !job.applicationDate) return null;
+        const days = parseInt(job.followupDays, 10);
+        if (isNaN(days)) return null;
+
+        const appDate = new Date(job.applicationDate);
+        if (isNaN(appDate.getTime())) return null;
+
+        const due = new Date(appDate);
+        due.setDate(due.getDate() + days);
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const dueDay = new Date(due.getFullYear(), due.getMonth(), due.getDate());
+
+        const msPerDay = 24 * 60 * 60 * 1000;
+        const diffDays = Math.round((dueDay - today) / msPerDay);
+
+        // Follow-ups only matter while still waiting
+        const terminal = (job.status === 'accepted' || job.status === 'rejected');
+
+        let state = 'upcoming';
+        if (!terminal) {
+            if (diffDays < 0) state = 'overdue';
+            else if (diffDays === 0) state = 'due-today';
+        } else {
+            state = 'done';
+        }
+
+        return { days, dueDate: due, diffDays, state };
+    }
+
+    renderFollowup(job) {
+        const info = this.getFollowupInfo(job);
+        if (!info) return '';
+
+        const dateStr = info.dueDate.toLocaleDateString();
+        let label;
+        if (info.state === 'overdue') {
+            const t = this.translations[this.currentLanguage]?.followup_overdue || 'Follow-up overdue since';
+            label = `⚠️ ${t} ${dateStr}`;
+        } else if (info.state === 'due-today') {
+            const t = this.translations[this.currentLanguage]?.followup_due_today || 'Follow up today!';
+            label = `🔔 ${t}`;
+        } else {
+            const t = this.translations[this.currentLanguage]?.followup_on || 'Follow up on';
+            label = `🗓️ ${t} ${dateStr}`;
+        }
+
+        return `<div class="followup-badge followup-${info.state}">${label}</div>`;
+    }
+
+    checkFollowupReminders() {
+        const dueJobs = this.jobs.filter(job => {
+            const info = this.getFollowupInfo(job);
+            return info && (info.state === 'overdue' || info.state === 'due-today');
+        });
+
+        if (dueJobs.length > 0) {
+            const template = this.translations[this.currentLanguage]?.followup_reminder_count ||
+                'You have {count} application(s) that need a follow-up.';
+            this.showNotification(template.replace('{count}', dueJobs.length));
+        }
+    }
+
     // Data Management
     exportData() {
         const data = {
             jobs: this.jobs,
             archivedJobs: this.archivedJobs,
+            resumes: this.resumes,
             settings: this.settings,
             exportDate: new Date().toISOString()
         };
@@ -1078,6 +1463,11 @@ class JobTracker {
                     this.saveArchivedJobs();
                 }
 
+                if (data.resumes) {
+                    this.resumes = data.resumes;
+                    this.saveResumes();
+                }
+
                 if (data.settings) {
                     this.settings = { ...this.settings, ...data.settings };
                     this.saveSettings();
@@ -1089,6 +1479,7 @@ class JobTracker {
                 
                 this.renderJobs();
                 this.renderArchivedJobs();
+                this.renderResumes();
                 this.updateReports();
                 this.showNotification(this.translations[this.currentLanguage]?.data_imported || 'Data imported successfully!');
             } catch (error) {
@@ -1218,7 +1609,7 @@ class JobTracker {
                         </button>
                     </div>
                 </div>
-                
+                ${this.renderFollowup(job)}
                 <!-- Job Details -->
                 <div class="job-details">
                     <div class="job-detail">
@@ -1229,6 +1620,29 @@ class JobTracker {
                         <strong>${this.translations[this.currentLanguage]?.applied || 'Applied'}:</strong>
                         <span>${applicationDate}</span>
                     </div>
+                    ${this.renderJobDetailRows(job, salaryText)}
+                </div>
+
+                <!-- Interview Results -->
+                ${this.renderInterviewResultsPreview(job.interviewResults)}
+
+                <!-- Job Description & Cover Letter -->
+                ${this.renderJobTextBlocks(job)}
+
+                <!-- Notes -->
+                ${job.notes ? `
+                    <div class="job-notes">
+                        <strong>${this.translations[this.currentLanguage]?.notes || 'Notes'}:</strong>
+                        <p>${this.escapeHtml(job.notes)}</p>
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    }
+
+    // Shared detail rows used by both active and archived job cards
+    renderJobDetailRows(job, salaryText) {
+        return `
                     ${job.contractType ? `
                         <div class="job-detail">
                             <strong>${this.translations[this.currentLanguage]?.contract_type || 'Contract'}:</strong>
@@ -1259,6 +1673,13 @@ class JobTracker {
                             <span>${salaryText}</span>
                         </div>
                     ` : ''}
+                    ${job.applicationSite ? `
+                        <div class="job-detail">
+                            <strong>${this.translations[this.currentLanguage]?.application_site || 'Application Site'}:</strong>
+                            <span>${this.escapeHtml(job.applicationSite)}</span>
+                        </div>
+                    ` : ''}
+                    ${this.renderResumeDetail(job)}
                     ${job.contactPerson ? `
                         <div class="job-detail">
                             <strong>${this.translations[this.currentLanguage]?.contact || 'Contact'}:</strong>
@@ -1271,20 +1692,45 @@ class JobTracker {
                             <a href="${job.jobUrl}" target="_blank" class="job-link">${this.translations[this.currentLanguage]?.view_job || 'View Job'}</a>
                         </div>
                     ` : ''}
-                </div>
-
-                <!-- Interview Results -->
-                ${this.renderInterviewResultsPreview(job.interviewResults)}
-                
-                <!-- Notes -->
-                ${job.notes ? `
-                    <div class="job-notes">
-                        <strong>${this.translations[this.currentLanguage]?.notes || 'Notes'}:</strong>
-                        <p>${this.escapeHtml(job.notes)}</p>
-                    </div>
-                ` : ''}
-            </div>
         `;
+    }
+
+    getJobResumeName(job) {
+        if (job.resumeId) {
+            const resume = this.resumes.find(r => r.id === job.resumeId);
+            if (resume) return this.getResumeLabel(resume);
+        }
+        // Resume may have been deleted; fall back to the snapshot saved with the job
+        return job.resumeName || '';
+    }
+
+    renderResumeDetail(job) {
+        const resumeName = this.getJobResumeName(job);
+        if (!resumeName) return '';
+        const label = this.translations[this.currentLanguage]?.resume_sent || 'Resume Sent';
+        const resume = job.resumeId ? this.resumes.find(r => r.id === job.resumeId) : null;
+        const downloadLink = (resume && resume.fileData)
+            ? ` <a class="job-link" href="#" onclick="event.preventDefault(); jobTracker.downloadResume('${resume.id}')">${this.translations[this.currentLanguage]?.download || 'Download'}</a>`
+            : '';
+        return `
+                    <div class="job-detail">
+                        <strong>${label}:</strong>
+                        <span>${this.escapeHtml(resumeName)}${downloadLink}</span>
+                    </div>
+        `;
+    }
+
+    renderJobTextBlocks(job) {
+        let html = '';
+        if (job.jobDescription) {
+            const label = this.translations[this.currentLanguage]?.job_description || 'Job Description';
+            html += `<details class="job-text-block"><summary>${label}</summary><p>${this.escapeHtml(job.jobDescription)}</p></details>`;
+        }
+        if (job.coverLetter) {
+            const label = this.translations[this.currentLanguage]?.cover_letter || 'Cover Letter';
+            html += `<details class="job-text-block"><summary>${label}</summary><p>${this.escapeHtml(job.coverLetter)}</p></details>`;
+        }
+        return html;
     }
 
     createArchivedJobCard(job) {
@@ -1310,7 +1756,7 @@ class JobTracker {
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Job Details -->
                 <div class="job-details">
                     <div class="job-detail">
@@ -1321,53 +1767,15 @@ class JobTracker {
                         <strong>${this.translations[this.currentLanguage]?.applied || 'Applied'}:</strong>
                         <span>${applicationDate}</span>
                     </div>
-                    ${job.contractType ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.contract_type || 'Contract'}:</strong>
-                            <span>${this.getContractText(job.contractType)}</span>
-                        </div>
-                    ` : ''}
-                    ${job.contractDuration ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.duration || 'Duration'}:</strong>
-                            <span>${this.escapeHtml(job.contractDuration)}</span>
-                        </div>
-                    ` : ''}
-                    ${job.startDate ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.start_date || 'Start Date'}:</strong>
-                            <span>${new Date(job.startDate).toLocaleDateString()}</span>
-                        </div>
-                    ` : ''}
-                    ${job.location ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.location || 'Location'}:</strong>
-                            <span>${this.escapeHtml(job.location)}</span>
-                        </div>
-                    ` : ''}
-                    ${salaryText ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.salary || 'Salary'}:</strong>
-                            <span>${salaryText}</span>
-                        </div>
-                    ` : ''}
-                    ${job.contactPerson ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.contact || 'Contact'}:</strong>
-                            <span>${this.escapeHtml(job.contactPerson)}</span>
-                        </div>
-                    ` : ''}
-                    ${job.jobUrl ? `
-                        <div class="job-detail">
-                            <strong>${this.translations[this.currentLanguage]?.url || 'URL'}:</strong>
-                            <a href="${job.jobUrl}" target="_blank" class="job-link">${this.translations[this.currentLanguage]?.view_job || 'View Job'}</a>
-                        </div>
-                    ` : ''}
+                    ${this.renderJobDetailRows(job, salaryText)}
                 </div>
 
                 <!-- Interview Results -->
                 ${this.renderInterviewResultsPreview(job.interviewResults)}
-                
+
+                <!-- Job Description & Cover Letter -->
+                ${this.renderJobTextBlocks(job)}
+
                 <!-- Notes -->
                 ${job.notes ? `
                     <div class="job-notes">
@@ -1804,19 +2212,21 @@ class JobTracker {
         return div.innerHTML;
     }
 
-    showNotification(message) {
+    showNotification(message, isError = false) {
         const notification = document.createElement('div');
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #4CAF50;
+            background: ${isError ? '#FF4B4B' : '#58CC02'};
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 0.9rem 1.4rem;
+            border-radius: 16px;
+            font-weight: 800;
+            font-family: 'Nunito', 'Vazirmatn', sans-serif;
+            box-shadow: 0 4px 0 ${isError ? '#E63946' : '#46A302'};
             z-index: 10000;
-            transform: translateX(100%);
+            transform: translateX(120%);
             transition: transform 0.3s ease;
         `;
         notification.textContent = message;

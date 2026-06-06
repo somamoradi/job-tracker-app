@@ -6,7 +6,7 @@ export default {
   search_jobs: "Buscar trabajos...",
   archived_jobs: "Trabajos Archivados",
   search_archived_jobs: "Buscar trabajos archivados...",
- 
+
   // Tab navigation
   tab_jobs: "Trabajos",
   tab_archive: "Archivo",

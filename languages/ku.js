@@ -13,7 +13,7 @@ export default {
         tab_archive: 'ئەرشیف',
         tab_reports: 'ڕاپۆرتەکان',
         tab_settings: 'ڕێکخستنەکان',
-         
+        
         // Sort options
         sort_by: 'ڕێکخستن بەپێی:',
         sort_date_applied_desc: 'بەرواری داواکاری (نوێترین)',

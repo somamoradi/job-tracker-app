@@ -8,7 +8,7 @@ export default {
     search_archived_jobs: 'Search archived jobs...',
     
     // Tab navigation
-    tab_jobs: 'Jobs', 
+    tab_jobs: 'Jobs',
     tab_archive: 'Archive',
     tab_reports: 'Reports',
     tab_settings: 'Settings',
@@ -205,5 +205,57 @@ export default {
     salary: 'Salary',
     contact: 'Contact',
     url: 'URL',
-    view_job: 'View Job'
+    view_job: 'View Job',
+
+    // Resumes feature
+    tab_resumes: 'Resumes',
+    my_resumes: 'My Resumes',
+    add_resume: 'Add Resume',
+    add_resume_title: 'Add Resume',
+    edit_resume: 'Edit Resume',
+    resume_name_label: 'Resume Name *',
+    resume_version_form_label: 'Version',
+    resume_file_label: 'Resume File (optional)',
+    resume_notes_label: 'Notes',
+    save_resume: 'Save Resume',
+    delete_resume_title: 'Delete Resume',
+    resume_delete_confirmation: 'Are you sure you want to delete this resume? This action cannot be undone.',
+    resume_saved: 'Resume saved successfully!',
+    resume_deleted: 'Resume deleted successfully!',
+    resume_version_label: 'Version',
+    used_in_applications: 'Used in applications',
+    no_resumes_yet: 'No resumes yet',
+    add_first_resume: 'Add your first resume to attach it to job applications.',
+    download: 'Download',
+    current_file: 'Current file',
+    file_too_large: 'File is too large (max 3MB).',
+    resume_name_placeholder: 'e.g., Frontend Developer Resume',
+    resume_version_placeholder: 'e.g., v1, v2, English, Tailored for startups',
+    resume_notes_placeholder: 'Notes about this resume version...',
+
+    // New job fields
+    application_site: 'Application Site',
+    application_site_placeholder: 'e.g., LinkedIn, Indeed, Company website',
+    resume_attached_label: 'Resume Version Sent',
+    resume_none_option: 'No resume attached',
+    resume_sent: 'Resume Sent',
+    job_description: 'Job Description',
+    job_description_placeholder: 'Paste the text of the job posting / requirements...',
+    cover_letter: 'Cover Letter',
+    cover_letter_placeholder: 'Cover letter / motivation letter text...',
+
+    // Follow-up reminders
+    followup_days_label: 'Follow-up Reminder',
+    followup_none: 'No reminder',
+    followup_3: '3 days after applying',
+    followup_5: '5 days after applying',
+    followup_7: '7 days after applying',
+    followup_10: '10 days after applying',
+    followup_14: '14 days after applying',
+    followup_21: '21 days after applying',
+    followup_30: '30 days after applying',
+    followup_on: 'Follow up on',
+    followup_due_today: 'Follow up today!',
+    followup_overdue: 'Follow-up overdue since',
+    followup_reminder_count: 'You have {count} application(s) that need a follow-up.'
 }; 

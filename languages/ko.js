@@ -12,7 +12,7 @@ export default  {
     tab_archive: '보관',
     tab_reports: '보고서',
     tab_settings: '설정',
-     
+    
     // Sort options
     sort_by: '정렬 기준:',
     sort_date_applied_desc: '지원일 (최신)',

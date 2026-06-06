@@ -651,3 +651,118 @@
         flex-direction: row-reverse;
     }
 }
+/* ============================================================
+   Resumes feature + follow-up reminders + collapsible text blocks
+   (added with the resumes / follow-up / job-detail enhancements)
+   ============================================================ */
+.resumes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.resume-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+.resume-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.resume-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  word-break: break-word;
+}
+.resume-icon { font-size: 1.25rem; }
+.resume-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+.resume-card-body { font-size: 0.875rem; }
+.resume-detail {
+  margin-bottom: 0.35rem;
+  color: #444;
+  strong { color: #666; margin-inline-end: 0.25rem; }
+}
+.resume-notes {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #e0e0e0;
+  color: #555;
+  white-space: pre-wrap;
+}
+.resume-file-current {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #2196F3;
+}
+
+.followup-badge {
+  display: inline-block;
+  margin: 0.5rem 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.followup-upcoming { background: rgba(33, 150, 243, 0.12); color: #1976d2; }
+.followup-due-today { background: rgba(245, 124, 0, 0.15); color: #e65100; }
+.followup-overdue { background: rgba(211, 47, 47, 0.12); color: #c62828; }
+.followup-done { background: rgba(0, 0, 0, 0.06); color: #757575; }
+
+.job-text-block {
+  margin-top: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: #fafafa;
+  padding: 0.25rem 0.75rem;
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.35rem 0;
+    color: #2196F3;
+    list-style: revert;
+    &:hover { color: #1976d2; }
+  }
+  p {
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+    color: #444;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+[dir=rtl] .resume-card-header { flex-direction: row-reverse; }
+[dir=rtl] .resume-card-title { flex-direction: row-reverse; }
+
+.theme-dark {
+  .resume-card { background: #272727; border-color: #404040; color: #ffffff; }
+  .resume-detail { color: #cccccc; strong { color: #999999; } }
+  .resume-notes { color: #bbbbbb; border-top-color: #404040; }
+  .job-text-block { background: #2e2e2e; border-color: #404040; p { color: #cccccc; } }
+  .followup-upcoming { background: rgba(33, 150, 243, 0.2); color: #90caf9; }
+  .followup-due-today { background: rgba(245, 124, 0, 0.25); color: #ffb74d; }
+  .followup-overdue { background: rgba(211, 47, 47, 0.25); color: #ef9a9a; }
+  .followup-done { background: rgba(255, 255, 255, 0.08); color: #aaaaaa; }
+}
