@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -619,8 +620,10 @@ input, textarea, select, button {
 .job-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
+  gap: 1em;
 }
 
 .job-title {
@@ -639,6 +642,11 @@ input, textarea, select, button {
 .job-actions {
   display: flex;
   gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  background: var(--duo-bg-soft);
+  padding: 1em;
+  border-radius: 15px;
 }
 .job-actions .btn {
   padding: 0.25rem;
@@ -761,7 +769,6 @@ input, textarea, select, button {
 .job-notes p {
   margin-bottom: 0.25rem;
   line-height: 1.5;
-   overflow: hidden;
 }
 
 .interview-results-preview {
@@ -958,6 +965,186 @@ input, textarea, select, button {
 }
 [dir=rtl] .modal-header {
   flex-direction: row-reverse;
+}
+
+/* ============================================================
+   Resumes feature + follow-up reminders + collapsible text blocks
+   (added with the resumes / follow-up / job-detail enhancements)
+   ============================================================ */
+.resumes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.resume-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: 0.3s ease;
+}
+.resume-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.resume-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.resume-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  word-break: break-word;
+}
+
+.resume-icon {
+  font-size: 1.25rem;
+}
+
+.resume-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.resume-card-body {
+  font-size: 0.875rem;
+}
+
+.resume-detail {
+  margin-bottom: 0.35rem;
+  color: #444;
+}
+.resume-detail strong {
+  color: #666;
+  margin-inline-end: 0.25rem;
+}
+
+.resume-notes {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #e0e0e0;
+  color: #555;
+  white-space: pre-wrap;
+}
+
+.resume-file-current {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #2196F3;
+}
+
+.followup-badge {
+  display: inline-block;
+  margin: 0.5rem 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.followup-upcoming {
+  background: rgba(33, 150, 243, 0.12);
+  color: #1976d2;
+}
+
+.followup-due-today {
+  background: rgba(245, 124, 0, 0.15);
+  color: #e65100;
+}
+
+.followup-overdue {
+  background: rgba(211, 47, 47, 0.12);
+  color: #c62828;
+}
+
+.followup-done {
+  background: rgba(0, 0, 0, 0.06);
+  color: #757575;
+}
+
+.job-text-block {
+  margin-top: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: #fafafa;
+  padding: 0.25rem 0.75rem;
+}
+.job-text-block summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.35rem 0;
+  color: #2196F3;
+  list-style: revert;
+}
+.job-text-block summary:hover {
+  color: #1976d2;
+}
+.job-text-block p {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  color: #444;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+[dir=rtl] .resume-card-header {
+  flex-direction: row-reverse;
+}
+
+[dir=rtl] .resume-card-title {
+  flex-direction: row-reverse;
+}
+
+.theme-dark .resume-card {
+  background: #272727;
+  border-color: #404040;
+  color: #ffffff;
+}
+.theme-dark .resume-detail {
+  color: #cccccc;
+}
+.theme-dark .resume-detail strong {
+  color: #999999;
+}
+.theme-dark .resume-notes {
+  color: #bbbbbb;
+  border-top-color: #404040;
+}
+.theme-dark .job-text-block {
+  background: #2e2e2e;
+  border-color: #404040;
+}
+.theme-dark .job-text-block p {
+  color: #cccccc;
+}
+.theme-dark .followup-upcoming {
+  background: rgba(33, 150, 243, 0.2);
+  color: #90caf9;
+}
+.theme-dark .followup-due-today {
+  background: rgba(245, 124, 0, 0.25);
+  color: #ffb74d;
+}
+.theme-dark .followup-overdue {
+  background: rgba(211, 47, 47, 0.25);
+  color: #ef9a9a;
+}
+.theme-dark .followup-done {
+  background: rgba(255, 255, 255, 0.08);
+  color: #aaaaaa;
 }
 
 .theme-green .app-header {
@@ -1889,215 +2076,6 @@ input, textarea, select, button {
     transform: translateY(0);
   }
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
-  transition: all 0.3s ease;
-}
-
-[dir=rtl] {
-  font-family: "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-
-[lang=ar], [lang=fa], [lang=ku] {
-  font-family: "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-
-[dir=rtl] *,
-[lang=ar] *,
-[lang=fa] *,
-[lang=ku] * {
-  font-family: inherit;
-}
-
-.app-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: white;
-  min-height: 100vh;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-/*# sourceMappingURL=styles.css.map */
-
-/* ============================================================
-   Resumes feature + follow-up reminders + collapsible text blocks
-   ============================================================ */
-.resumes-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-  padding: 1rem 0;
-}
-
-.resume-card {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
-  transition: 0.3s ease;
-}
-.resume-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-.resume-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-.resume-card-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  font-size: 1.05rem;
-  word-break: break-word;
-}
-.resume-icon {
-  font-size: 1.25rem;
-}
-.resume-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  flex-shrink: 0;
-}
-.resume-card-body {
-  font-size: 0.875rem;
-}
-.resume-detail {
-  margin-bottom: 0.35rem;
-  color: #444;
-}
-.resume-detail strong {
-  color: #666;
-  margin-inline-end: 0.25rem;
-}
-.resume-notes {
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px dashed #e0e0e0;
-  color: #555;
-  white-space: pre-wrap;
-}
-.resume-file-current {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #2196F3;
-}
-
-/* Follow-up reminder badge */
-.followup-badge {
-  display: inline-block;
-  margin: 0.5rem 0;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-.followup-upcoming {
-  background: rgba(33, 150, 243, 0.12);
-  color: #1976d2;
-}
-.followup-due-today {
-  background: rgba(245, 124, 0, 0.15);
-  color: #e65100;
-}
-.followup-overdue {
-  background: rgba(211, 47, 47, 0.12);
-  color: #c62828;
-}
-.followup-done {
-  background: rgba(0, 0, 0, 0.06);
-  color: #757575;
-}
-
-/* Collapsible job description / cover letter blocks */
-.job-text-block {
-  margin-top: 0.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background: #fafafa;
-  padding: 0.25rem 0.75rem;
-}
-.job-text-block summary {
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 0.35rem 0;
-  color: #2196F3;
-  list-style: revert;
-}
-.job-text-block summary:hover {
-  color: #1976d2;
-}
-.job-text-block p {
-  margin: 0.5rem 0;
-  font-size: 0.875rem;
-  color: #444;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* RTL tweaks */
-[dir=rtl] .resume-card-header {
-  flex-direction: row-reverse;
-}
-[dir=rtl] .resume-card-title {
-  flex-direction: row-reverse;
-}
-
-/* Dark theme overrides */
-.theme-dark .resume-card {
-  background: rgb(38.75, 38.75, 38.75);
-  border-color: rgb(64.25, 64.25, 64.25);
-  color: #ffffff;
-}
-.theme-dark .resume-detail {
-  color: #cccccc;
-}
-.theme-dark .resume-detail strong {
-  color: #999999;
-}
-.theme-dark .resume-notes {
-  color: #bbbbbb;
-  border-top-color: rgb(64.25, 64.25, 64.25);
-}
-.theme-dark .job-text-block {
-  background: rgb(46.4, 46.4, 46.4);
-  border-color: rgb(64.25, 64.25, 64.25);
-}
-.theme-dark .job-text-block p {
-  color: #cccccc;
-}
-.theme-dark .followup-upcoming {
-  background: rgba(33, 150, 243, 0.2);
-  color: #90caf9;
-}
-.theme-dark .followup-due-today {
-  background: rgba(245, 124, 0, 0.25);
-  color: #ffb74d;
-}
-.theme-dark .followup-overdue {
-  background: rgba(211, 47, 47, 0.25);
-  color: #ef9a9a;
-}
-.theme-dark .followup-done {
-  background: rgba(255, 255, 255, 0.08);
-  color: #aaaaaa;
-}
-
 /* ============================================================
    🦉 DUOLINGO-STYLE REDESIGN LAYER
    Playful, rounded, chunky "3D" buttons, bright green brand.
@@ -2142,9 +2120,10 @@ html body {
   color: var(--duo-ink);
   font-weight: 600;
 }
-[lang="ar"], [lang="fa"], [lang="ku"],
-[dir="rtl"] {
-  font-family: 'Vazirmatn', var(--duo-font);
+
+[lang=ar], [lang=fa], [lang=ku],
+[dir=rtl] {
+  font-family: "Vazirmatn", var(--duo-font);
 }
 
 html .app-container {
@@ -2152,7 +2131,10 @@ html .app-container {
   box-shadow: 0 0 0 1px var(--duo-border);
 }
 
-h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  color: var(--duo-ink-strong);
+}
 
 /* ---------- Header ---------- */
 .app-header {
@@ -2160,6 +2142,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   border-bottom: 2px solid var(--duo-border);
   box-shadow: none;
 }
+
 .app-header h1 {
   color: var(--duo-green);
   font-weight: 900;
@@ -2177,8 +2160,16 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   letter-spacing: 0.5px;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.nav-tab .tab-text { font-weight: 800; }
-.nav-tab:hover:not(.active) { background: var(--duo-bg-soft); color: var(--duo-ink); }
+
+.nav-tab .tab-text {
+  font-weight: 800;
+}
+
+.nav-tab:hover:not(.active) {
+  background: var(--duo-bg-soft);
+  color: var(--duo-ink);
+}
+
 .nav-tab.active {
   background: var(--duo-blue-soft);
   border-color: #84D8FF;
@@ -2198,11 +2189,28 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   transition: filter 0.12s ease, transform 0.06s ease, box-shadow 0.06s ease;
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.18);
 }
-.btn:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
-.btn-primary { background: var(--duo-green); color: #fff; box-shadow: 0 4px 0 var(--duo-green-d); }
-.btn-primary:hover:not(:disabled) { background: var(--duo-green); filter: brightness(1.05); }
+.btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background: var(--duo-green);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--duo-green-d);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--duo-green);
+  filter: brightness(1.05);
+}
 
 .btn-secondary {
   background: #fff;
@@ -2211,13 +2219,32 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   box-shadow: 0 4px 0 var(--duo-border);
   padding: calc(0.7rem - 2px) calc(1.25rem - 2px);
 }
-.btn-secondary:hover:not(:disabled) { background: var(--duo-bg-soft); }
 
-.btn-danger { background: var(--duo-red); color: #fff; box-shadow: 0 4px 0 var(--duo-red-d); }
-.btn-danger:hover:not(:disabled) { background: var(--duo-red); filter: brightness(1.05); }
+.btn-secondary:hover:not(:disabled) {
+  background: var(--duo-bg-soft);
+}
 
-.btn.btn-info { background: var(--duo-blue); color: #fff; box-shadow: 0 4px 0 var(--duo-blue-d); }
-.btn.btn-info:hover:not(:disabled) { background: var(--duo-blue); filter: brightness(1.05); }
+.btn-danger {
+  background: var(--duo-red);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--duo-red-d);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--duo-red);
+  filter: brightness(1.05);
+}
+
+.btn.btn-info {
+  background: var(--duo-blue);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--duo-blue-d);
+}
+
+.btn.btn-info:hover:not(:disabled) {
+  background: var(--duo-blue);
+  filter: brightness(1.05);
+}
 
 .btn-small {
   padding: 0.45rem 0.8rem;
@@ -2225,10 +2252,23 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   border-radius: var(--duo-radius-sm);
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
 }
-.btn-small.btn-secondary { box-shadow: 0 3px 0 var(--duo-border); }
-.btn-small.btn-danger { box-shadow: 0 3px 0 var(--duo-red-d); }
-.btn-small.btn-info { box-shadow: 0 3px 0 var(--duo-blue-d); }
-.btn-small:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+
+.btn-small.btn-secondary {
+  box-shadow: 0 3px 0 var(--duo-border);
+}
+
+.btn-small.btn-danger {
+  box-shadow: 0 3px 0 var(--duo-red-d);
+}
+
+.btn-small.btn-info {
+  box-shadow: 0 3px 0 var(--duo-blue-d);
+}
+
+.btn-small:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
 
 /* ---------- Inputs / selects ---------- */
 .form-group input,
@@ -2247,6 +2287,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   background: #fff;
   transition: border-color 0.15s ease;
 }
+
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus,
@@ -2258,7 +2299,11 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   box-shadow: none;
   outline: none;
 }
-.form-group label { color: var(--duo-ink-strong); font-weight: 800; }
+
+.form-group label {
+  color: var(--duo-ink-strong);
+  font-weight: 800;
+}
 
 /* ---------- Cards ---------- */
 .job-card,
@@ -2272,24 +2317,41 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   border-radius: var(--duo-radius);
   box-shadow: none;
 }
+
 .job-card:hover,
 .resume-card:hover {
   border-color: var(--duo-border-2);
   box-shadow: 0 4px 0 var(--duo-border);
   transform: translateY(-2px);
 }
-.job-title, .resume-card-title { font-weight: 800; color: var(--duo-ink-strong); }
-.job-company { color: var(--duo-muted); font-weight: 700; }
+
+.job-title, .resume-card-title {
+  font-weight: 800;
+  color: var(--duo-ink-strong);
+}
+
+.job-company {
+  color: var(--duo-muted);
+  font-weight: 700;
+}
 
 /* ---------- Stat cards ---------- */
-.stat-card { text-align: center; }
+.stat-card {
+  text-align: center;
+}
+
 .stat-card h3 {
   color: var(--duo-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.8rem;
 }
-.stat-card .stat-number { color: var(--duo-green); font-weight: 900; font-size: 2.1rem; }
+
+.stat-card .stat-number {
+  color: var(--duo-green);
+  font-weight: 900;
+  font-size: 2.1rem;
+}
 
 /* ---------- Status pills ---------- */
 .job-status {
@@ -2300,12 +2362,36 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   letter-spacing: 0.4px;
   padding: 0.25rem 0.7rem;
 }
-.status-to-apply { background: var(--duo-orange-soft); color: var(--duo-orange-d); }
-.status-applied { background: var(--duo-blue-soft); color: var(--duo-blue-d); }
-.status-interview-scheduled { background: var(--duo-purple-soft); color: var(--duo-purple-d); }
-.status-interview-completed { background: var(--duo-green-soft); color: var(--duo-green-d); }
-.status-rejected { background: var(--duo-red-soft); color: var(--duo-red-d); }
-.status-accepted { background: var(--duo-green); color: #fff; }
+
+.status-to-apply {
+  background: var(--duo-orange-soft);
+  color: var(--duo-orange-d);
+}
+
+.status-applied {
+  background: var(--duo-blue-soft);
+  color: var(--duo-blue-d);
+}
+
+.status-interview-scheduled {
+  background: var(--duo-purple-soft);
+  color: var(--duo-purple-d);
+}
+
+.status-interview-completed {
+  background: var(--duo-green-soft);
+  color: var(--duo-green-d);
+}
+
+.status-rejected {
+  background: var(--duo-red-soft);
+  color: var(--duo-red-d);
+}
+
+.status-accepted {
+  background: var(--duo-green);
+  color: #fff;
+}
 
 .contract-badge {
   border-radius: var(--duo-pill);
@@ -2324,8 +2410,16 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   background: #fff;
   color: var(--duo-muted);
 }
-.view-btn.active { background: var(--duo-green); border-color: var(--duo-green-d); color: #fff; }
-.view-btn:hover:not(.active) { background: var(--duo-bg-soft); }
+
+.view-btn.active {
+  background: var(--duo-green);
+  border-color: var(--duo-green-d);
+  color: #fff;
+}
+
+.view-btn:hover:not(.active) {
+  background: var(--duo-bg-soft);
+}
 
 /* ---------- Interview preview accordion ---------- */
 .interview-preview-header {
@@ -2335,23 +2429,65 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   color: var(--duo-ink-strong);
   font-weight: 800;
 }
-.interview-preview-header:hover { background: #EFEFEF; }
-.interview-preview-header.expanded { background: var(--duo-green-soft); border-color: var(--duo-green-l); color: var(--duo-green-d); }
+
+.interview-preview-header:hover {
+  background: #EFEFEF;
+}
+
+.interview-preview-header.expanded {
+  background: var(--duo-green-soft);
+  border-color: var(--duo-green-l);
+  color: var(--duo-green-d);
+}
 
 /* ---------- Follow-up badges ---------- */
-.followup-badge { font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; }
-.followup-upcoming { background: var(--duo-blue-soft); color: var(--duo-blue-d); }
-.followup-due-today { background: var(--duo-orange-soft); color: var(--duo-orange-d); }
-.followup-overdue { background: var(--duo-red-soft); color: var(--duo-red-d); }
-.followup-done { background: var(--duo-bg-soft); color: var(--duo-hare); }
+.followup-badge {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.followup-upcoming {
+  background: var(--duo-blue-soft);
+  color: var(--duo-blue-d);
+}
+
+.followup-due-today {
+  background: var(--duo-orange-soft);
+  color: var(--duo-orange-d);
+}
+
+.followup-overdue {
+  background: var(--duo-red-soft);
+  color: var(--duo-red-d);
+}
+
+.followup-done {
+  background: var(--duo-bg-soft);
+  color: var(--duo-hare);
+}
 
 /* ---------- Collapsible text blocks ---------- */
-.job-text-block { border: 2px solid var(--duo-border); border-radius: var(--duo-radius-sm); background: var(--duo-bg-soft); }
-.job-text-block summary { color: var(--duo-green-d); font-weight: 800; }
-.job-text-block summary:hover { color: var(--duo-green); }
+.job-text-block {
+  border: 2px solid var(--duo-border);
+  border-radius: var(--duo-radius-sm);
+  background: var(--duo-bg-soft);
+}
+
+.job-text-block summary {
+  color: var(--duo-green-d);
+  font-weight: 800;
+}
+
+.job-text-block summary:hover {
+  color: var(--duo-green);
+}
 
 /* ---------- Resume file label ---------- */
-.resume-file-current { color: var(--duo-green-d); font-weight: 700; }
+.resume-file-current {
+  color: var(--duo-green-d);
+  font-weight: 700;
+}
 
 /* ---------- Modals ---------- */
 .modal-content {
@@ -2359,31 +2495,67 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   border: 2px solid var(--duo-border);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
 }
-.modal-header { border-bottom: 2px solid var(--duo-border); }
+
+.modal-header {
+  border-bottom: 2px solid var(--duo-border);
+}
+
 .close-btn {
   border-radius: var(--duo-pill);
   color: var(--duo-hare);
   font-weight: 800;
   transition: background 0.15s, color 0.15s;
 }
-.close-btn:hover { background: var(--duo-bg-soft); color: var(--duo-red); }
+
+.close-btn:hover {
+  background: var(--duo-bg-soft);
+  color: var(--duo-red);
+}
 
 /* ---------- Empty states ---------- */
-.empty-state { padding: 3rem 1rem; }
-.empty-state h3 { color: var(--duo-ink-strong); font-size: 1.4rem; font-weight: 900; }
-.empty-state p { color: var(--duo-muted); }
+.empty-state {
+  padding: 3rem 1rem;
+}
+
+.empty-state h3 {
+  color: var(--duo-ink-strong);
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.empty-state p {
+  color: var(--duo-muted);
+}
 
 /* ---------- Links ---------- */
-.job-link { color: var(--duo-blue-d); font-weight: 800; text-decoration: none; }
-.job-link:hover { text-decoration: underline; }
+.job-link {
+  color: var(--duo-blue-d);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.job-link:hover {
+  text-decoration: underline;
+}
 
 /* ---------- Keep colored light-themes consistent (white header) ---------- */
 .theme-green .app-header,
 .theme-purple .app-header,
-.theme-orange .app-header { background: var(--duo-bg) !important; }
-.theme-green .app-header h1 { color: var(--duo-green); }
-.theme-purple .app-header h1 { color: var(--duo-purple-d); }
-.theme-orange .app-header h1 { color: var(--duo-orange-d); }
+.theme-orange .app-header {
+  background: var(--duo-bg) !important;
+}
+
+.theme-green .app-header h1 {
+  color: var(--duo-green);
+}
+
+.theme-purple .app-header h1 {
+  color: var(--duo-purple-d);
+}
+
+.theme-orange .app-header h1 {
+  color: var(--duo-orange-d);
+}
 
 /* ============================================================
    🌙 DUOLINGO DARK MODE
@@ -2400,12 +2572,36 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   background-color: #131F24;
   color: #F1F1F1;
 }
-.theme-dark .app-container { background: #131F24; box-shadow: none; }
-.theme-dark .app-header { background: #131F24 !important; border-bottom-color: #37464F; }
-.theme-dark .app-header h1 { color: var(--duo-green-l); }
-.theme-dark .nav-tab { color: var(--duo-muted); }
-.theme-dark .nav-tab:hover:not(.active) { background: #202F36; color: #F1F1F1; }
-.theme-dark .nav-tab.active { background: rgba(28, 176, 246, 0.15); border-color: #1CB0F6; color: #5BC8FF; }
+
+.theme-dark .app-container {
+  background: #131F24;
+  box-shadow: none;
+}
+
+.theme-dark .app-header {
+  background: #131F24 !important;
+  border-bottom-color: #37464F;
+}
+
+.theme-dark .app-header h1 {
+  color: var(--duo-green-l);
+}
+
+.theme-dark .nav-tab {
+  color: var(--duo-muted);
+}
+
+.theme-dark .nav-tab:hover:not(.active) {
+  background: #202F36;
+  color: #F1F1F1;
+}
+
+.theme-dark .nav-tab.active {
+  background: rgba(28, 176, 246, 0.15);
+  border-color: #1CB0F6;
+  color: #5BC8FF;
+}
+
 .theme-dark .job-card,
 .theme-dark .resume-card,
 .theme-dark .stat-card,
@@ -2416,14 +2612,27 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   border-color: #37464F;
   color: #F1F1F1;
 }
+
 .theme-dark .job-card:hover,
-.theme-dark .resume-card:hover { box-shadow: 0 4px 0 #37464F; }
-.theme-dark .job-company { color: var(--duo-muted); }
+.theme-dark .resume-card:hover {
+  box-shadow: 0 4px 0 #37464F;
+}
+
+.theme-dark .job-company {
+  color: var(--duo-muted);
+}
+
 .theme-dark .job-detail strong,
-.theme-dark .resume-detail strong { color: var(--duo-muted); }
+.theme-dark .resume-detail strong {
+  color: var(--duo-muted);
+}
+
 .theme-dark .resume-detail,
 .theme-dark .resume-notes,
-.theme-dark .job-notes p { color: #C7D3DA; }
+.theme-dark .job-notes p {
+  color: #C7D3DA;
+}
+
 .theme-dark .form-group input,
 .theme-dark .form-group textarea,
 .theme-dark .form-group select,
@@ -2435,24 +2644,136 @@ h1, h2, h3, h4, h5, h6 { font-weight: 800; color: var(--duo-ink-strong); }
   border-color: #37464F;
   color: #F1F1F1;
 }
+
 .theme-dark .form-group input:focus,
 .theme-dark .form-group textarea:focus,
-.theme-dark .form-group select:focus { border-color: #1CB0F6; box-shadow: none; }
-.theme-dark .form-group label { color: #FFFFFF; }
-.theme-dark .modal-content { background: #202F36; border-color: #37464F; }
-.theme-dark .modal-header { border-bottom-color: #37464F; }
-.theme-dark .modal-header h2 { color: #FFFFFF; }
-.theme-dark .btn-secondary { background: #202F36; color: #5BC8FF; border-color: #37464F; box-shadow: 0 4px 0 #37464F; }
-.theme-dark .btn-small.btn-secondary { box-shadow: 0 3px 0 #37464F; }
-.theme-dark .btn-secondary:hover:not(:disabled) { background: #2A3A42; }
-.theme-dark .interview-preview-header { background: #1B2A30; border-color: #37464F; color: #F1F1F1; }
-.theme-dark .interview-preview-header:hover { background: #243640; }
-.theme-dark .interview-preview-header.expanded { background: rgba(88, 204, 2, 0.18); border-color: var(--duo-green); color: var(--duo-green-l); }
-.theme-dark .job-text-block { background: #1B2A30; border-color: #37464F; }
-.theme-dark .job-text-block p { color: #C7D3DA; }
-.theme-dark .contract-badge { background: #1B2A30; border-color: #37464F; color: var(--duo-muted); }
-.theme-dark .view-btn { background: #202F36; border-color: #37464F; color: var(--duo-muted); }
-.theme-dark .view-btn.active { background: var(--duo-green); border-color: var(--duo-green-d); color: #fff; }
-.theme-dark .empty-state h3 { color: #FFFFFF; }
-.theme-dark .empty-state p { color: var(--duo-muted); }
-.theme-dark .stat-card .stat-number { color: var(--duo-green-l); }
+.theme-dark .form-group select:focus {
+  border-color: #1CB0F6;
+  box-shadow: none;
+}
+
+.theme-dark .form-group label {
+  color: #FFFFFF;
+}
+
+.theme-dark .modal-content {
+  background: #202F36;
+  border-color: #37464F;
+}
+
+.theme-dark .modal-header {
+  border-bottom-color: #37464F;
+}
+
+.theme-dark .modal-header h2 {
+  color: #FFFFFF;
+}
+
+.theme-dark .btn-secondary {
+  background: #202F36;
+  color: #5BC8FF;
+  border-color: #37464F;
+  box-shadow: 0 4px 0 #37464F;
+}
+
+.theme-dark .btn-small.btn-secondary {
+  box-shadow: 0 3px 0 #37464F;
+}
+
+.theme-dark .btn-secondary:hover:not(:disabled) {
+  background: #2A3A42;
+}
+
+.theme-dark .interview-preview-header {
+  background: #1B2A30;
+  border-color: #37464F;
+  color: #F1F1F1;
+}
+
+.theme-dark .interview-preview-header:hover {
+  background: #243640;
+}
+
+.theme-dark .interview-preview-header.expanded {
+  background: rgba(88, 204, 2, 0.18);
+  border-color: var(--duo-green);
+  color: var(--duo-green-l);
+}
+
+.theme-dark .job-text-block {
+  background: #1B2A30;
+  border-color: #37464F;
+}
+
+.theme-dark .job-text-block p {
+  color: #C7D3DA;
+}
+
+.theme-dark .contract-badge {
+  background: #1B2A30;
+  border-color: #37464F;
+  color: var(--duo-muted);
+}
+
+.theme-dark .view-btn {
+  background: #202F36;
+  border-color: #37464F;
+  color: var(--duo-muted);
+}
+
+.theme-dark .view-btn.active {
+  background: var(--duo-green);
+  border-color: var(--duo-green-d);
+  color: #fff;
+}
+
+.theme-dark .empty-state h3 {
+  color: #FFFFFF;
+}
+
+.theme-dark .empty-state p {
+  color: var(--duo-muted);
+}
+
+.theme-dark .stat-card .stat-number {
+  color: var(--duo-green-l);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+[dir=rtl] {
+  font-family: "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+[lang=ar], [lang=fa], [lang=ku] {
+  font-family: "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+[dir=rtl] *,
+[lang=ar] *,
+[lang=fa] *,
+[lang=ku] * {
+  font-family: inherit;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/*# sourceMappingURL=styles.css.map */

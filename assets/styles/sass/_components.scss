@@ -294,8 +294,10 @@
 .job-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     margin-bottom: $spacing-sm;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    gap: 1em;
 }
 
 .job-title {
@@ -314,6 +316,11 @@
 .job-actions {
     display: flex;
     gap: $spacing-sm;
+    display: flex;
+    gap: 0.5rem;
+    background: var(--duo-bg-soft);
+    padding: 1em;
+    border-radius: 15px;
 
     .btn {
         padding: $spacing-xs;

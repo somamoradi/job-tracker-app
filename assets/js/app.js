@@ -1593,7 +1593,7 @@ class JobTracker {
         return `
             <div class="job-card" data-job-id="${job.id}">
                 <div class="job-header">
-                    <div>
+                    <div class="job-header-content">
                         <div class="job-title">${this.escapeHtml(job.positionTitle)}${contractBadge}</div>
                         <div class="job-company">${this.escapeHtml(job.companyName)}</div>
                     </div>
